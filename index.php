@@ -4,6 +4,7 @@ require_once ("include/class.pdogsb.inc.php");
 include("vues/v_entete.php") ;
 
 echo " moi c Alejandra" ;
+echo "Moi c'est Inès";
 session_start();
 $pdo = PdoGsb::getPdoGsb();
 $estConnecte = estConnecte();
