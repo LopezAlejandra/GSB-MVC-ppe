@@ -1,5 +1,5 @@
 <div id=menuGauche>
-    <li class='menu'>  
+    <li class='menu'>
         <a href="index.php?uc=connexion&action=accueilComptable" title="Page d'accueil">Accueil</a>
     </li>
     <li class="menu">

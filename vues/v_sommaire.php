@@ -1,15 +1,6 @@
-﻿    <!-- Division pour le sommaire -->
+    <!-- Division pour le sommaire -->
     <div id="menuGauche">
      <div id="infosUtil">
-         <?php
-         if (estUtilisateurConnecte()) {
-             $idUser = getUserConnecte();
-             $login = getInfosUtilisateur($idConnexion, $idUser);
-             $nom = $login['nom'];
-             $prenom = $login ['prenom'];
-             $libelleType = $login ['libelleType'];
-         }
-         ?>
     
         <h2>
     

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /** 
  * Classe d'accès aux données. 
  
@@ -26,7 +26,7 @@ class PdoGsb{
  * Constructeur privé, crée l'instance de PDO qui sera sollicitée
  * pour toutes les méthodes de la classe
  */				
-	private function _construct(){//modification
+	private function __construct(){
     	PdoGsb::$monPdo = new PDO(PdoGsb::$serveur.';'.PdoGsb::$bdd, PdoGsb::$user, PdoGsb::$mdp); 
 		PdoGsb::$monPdo->query("SET CHARACTER SET utf8");
 	}
@@ -53,13 +53,9 @@ class PdoGsb{
  * @param $mdp
  * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
 */
-	public function getInfosUtilisateur($login, $mdp){
-		$req = "select utilisateur.id as id,
-			       utilisateur.nom as nom, 
-			       utilisateur.prenom as prenom 
-			from utilisateur join type
-			where idTypeUtil = idType and
-                        utilisateur.login='$login' and utilisateur.mdp='$mdp'";
+	public function getInfosVisiteur($login, $mdp){
+		$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur 
+		where visiteur.login='$login' and visiteur.mdp='$mdp'";
 		$rs = PdoGsb::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
