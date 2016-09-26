@@ -57,8 +57,9 @@ class PdoGsb{
 		$req = "select utilisateur.id as id,
 			       utilisateur.nom as nom, 
 			       utilisateur.prenom as prenom 
-			from utilisateur 
-			where utilisateur.login='$login' and utilisateur.mdp='$mdp'";
+			from utilisateur join type
+			where idTypeUtil = idType and
+                        utilisateur.login='$login' and utilisateur.mdp='$mdp'";
 		$rs = PdoGsb::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
