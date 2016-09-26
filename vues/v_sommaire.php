@@ -9,6 +9,7 @@
              $prenom = $login ['prenom'];
              $libelleType = $login ['libelleType'];
          }
+         ?>
     
         <h2>
     
