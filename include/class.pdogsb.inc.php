@@ -30,7 +30,7 @@ class PdoGsb{
     	PdoGsb::$monPdo = new PDO(PdoGsb::$serveur.';'.PdoGsb::$bdd, PdoGsb::$user, PdoGsb::$mdp); 
 		PdoGsb::$monPdo->query("SET CHARACTER SET utf8");
 	}
-	public function _destruct(){
+	public function __destruct(){
 		PdoGsb::$monPdo = null;
 	}
 /**
@@ -53,13 +53,14 @@ class PdoGsb{
  * @param $mdp
  * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
 */
-	public function getInfosVisiteur($login, $mdp){
-		$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur 
-		where visiteur.login='$login' and visiteur.mdp='$mdp'";
-		$rs = PdoGsb::$monPdo->query($req);
-		$ligne = $rs->fetch();
-		return $ligne;
-	}
+	 public function getInfosVisiteur($login, $mdp){
+        
+        $req = "SELECT visiteur.id AS id, visiteur.nom AS nom, visiteur.prenom AS prenom, visiteur.profil AS profil FROM visiteur 
+        WHERE visiteur.login='$login' AND visiteur.mdp='$mdp'";
+        $rs = PdoGsb::$monPdo->query($req);
+        $ligne = $rs->fetch();
+        return $ligne;
+    }
 
 /**
  * Retourne sous forme d'un tableau associatif toutes les lignes de frais hors forfait
