@@ -20,11 +20,13 @@ function estConnecte(){
  * @param $nom
  * @param $prenom
  */
-function connecter($id,$nom,$prenom){
-	$_SESSION['idVisiteur']= $id; 
-	$_SESSION['nom']= $nom;
-	$_SESSION['prenom']= $prenom;
-}
+ function connecter($id, $nom, $prenom, $profil) {
+        $_SESSION['idVisiteur'] = $id;
+        $_SESSION['nom'] = $nom;
+        $_SESSION['prenom'] = $prenom;
+        $_SESSION['profil'] = $profil;
+    }
+	
 /**
  * Détruit la session active
  */
