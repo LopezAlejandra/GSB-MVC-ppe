@@ -1,14 +1,11 @@
-<div id=menuGauche>
-    <li class='menu'>
-        <a href="index.php?uc=connexion&action=accueilComptable" title="Page d'accueil">Accueil</a>
-    </li>
-    <li class="menu">
-        <a href="index.php?uc=validerFrais&action=selectionnerVisiteur" title="Validation des fiches de frais">Valider fiches de frais</a>
-    </li>
-    <li class="menu">
-        <a href="index.php?uc=suivreFrais&action=selectionnerFiche" title="Consultation des fiches de frais des visiteurs">Suivi fiches de frais</a>
-    </li>
-    <li class="menu">
-        <a href="index.php?uc=gererProfil&action=voirLesProfils" title="Gestion des visiteurs">Gestion des visiteurs</a>
-    </li>
-</div>
+<div id="droit"> 
+        <section>
+            
+            Bonjour <?php echo $_SESSION['prenom']."  ".$_SESSION['nom']  ?><br/>
+            <ul>
+                <li><a href="index.php?uc=validerFrais&action=selectionnerFiche">Valider fiche de frais</a></li>
+                <li><a href="index.php?uc=suivreFrais&action=selectionnerFicheValide">Suivre le paiement</a></li>
+                <li><a href="index.php?uc=connexion&action=demandeConnexion">Déconnexion</a></li>
+            </ul>
+        </section>
+    </div>
