@@ -4,13 +4,13 @@
     
         <h2>
     
-</h2>
+        </h2>
     
       </div>  
         <ul id="menuList">
 			<li >
-				  Visiteur :<br>
-				<?php echo $_SESSION['prenom']."  ".$_SESSION['nom']  ?>
+                            <h2>Visiteur :</h2><br/>
+				<?php echo "Bonjour M/Mme  ".$_SESSION['prenom']."  ".$_SESSION['nom']."<br/>"  ?>
 			</li>
            <li class="smenu">
               <a href="index.php?uc=gererFrais&action=saisirFrais" title="Saisie fiche de frais ">Saisie fiche de frais</a>
