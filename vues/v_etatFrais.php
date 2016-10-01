@@ -1,17 +1,20 @@
 ﻿
 <h3>Fiche de frais du mois <?php echo $numMois."-".$numAnnee?> : 
     </h3>
+<form action="index.php?uc=validerFrais&action=validerFiche" method="post">
     <div class="encadre">
     <p>
-        Etat : <?php echo $libEtat?> depuis le <?php echo $dateModif?> <br> Montant validé : <?php echo $montantValide?>
-              
-                     
+        Etat : <?php echo $libEtat?> depuis le <?php echo $dateModif?> <br> Montant validé : <?php echo $montant?>
+                          
     </p>
+      <input class="button" type="submit" value="Valider" />
+                        
+     </form>
   	<table class="listeLegere">
   	   <caption>Eléments forfaitisés </caption>
         <tr>
          <?php
-         foreach ( $lesFraisForfait as $unFraisForfait ) 
+         foreach ($lesFraisForfait as $unFraisForfait ) 
 		 {
 			$libelle = $unFraisForfait['libelle'];
 		?>	
