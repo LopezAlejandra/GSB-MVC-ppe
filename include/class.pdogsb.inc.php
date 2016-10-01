@@ -46,6 +46,32 @@ class PdoGsb{
 		}
 		return PdoGsb::$monPdoGsb;  
 	}
+        
+/**
+ * Retourne une liste avec tous les visiteurs
+ * @param $idVisiteur
+ * @return le nom et le prénom de tous les visiteurs
+ */
+    public function getLesVisiteurs(){
+		$req = "select visiteur.id as idVisiteur, visiteur.nom as nom, visiteur.prenom as prenom
+                from  visiteur  
+		order by visiteur.nom asc ";
+		$res = PdoGsb::$monPdo->query($req);
+		$lesVisiteurs =array();
+		$ligne = $res->fetch();
+		while($ligne!=null)	{
+			$idVisiteur=$ligne['idVisiteur'];
+			$nomVisiteur=$ligne['nom'];
+			$prenomVisiteur=$ligne['prenom'];
+			$lesVisiteurs["$idVisiteur"]=array(
+                            "idVisiteur"=>"$idVisiteur",
+                            "nom"=> "$nomVisiteur",
+                            "prenom"  => "$prenomVisiteur");
+			$ligne = $res->fetch(); 		
+		}
+		return $lesVisiteurs;
+    }
+
 /**
  * Retourne les informations d'un visiteur
  
