@@ -15,18 +15,15 @@ function estConnecte(){
 }
 /**
  * Enregistre dans une variable session les infos d'un visiteur
- 
  * @param $id 
  * @param $nom
  * @param $prenom
  */
- function connecter($id, $nom, $prenom, $profil) {
-        $_SESSION['idVisiteur'] = $id;
-        $_SESSION['nom'] = $nom;
-        $_SESSION['prenom'] = $prenom;
-        $_SESSION['profil'] = $profil;
-    }
-	
+function connecter($id,$nom,$prenom){
+	$_SESSION['idVisiteur']= $id; 
+	$_SESSION['nom']= $nom;
+	$_SESSION['prenom']= $prenom;
+}
 /**
  * Détruit la session active
  */
@@ -201,4 +198,14 @@ function nbErreurs(){
 	   return count($_REQUEST['erreurs']);
 	}
 }
+
+/**
+ * permet d'enregistrer les informations (id, mois) d'un visiteur 
+ * @param $idVisiteur
+ * @param $mois
+ */
+    function conserverId($idVisiteur,$mois){//
+	$_SESSION['idVisiteur']= $idVisiteur; 
+        $_SESSION['mois']= $mois;
+    }
 ?>
