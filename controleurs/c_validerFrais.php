@@ -34,7 +34,7 @@ switch ($action){
             $LesFraisHorsForfait=$pdo->getLesFraisHorsForfait($idVisiteur, $mois);
         
         
-            include("vues/v_etatFrais.php");
+            include("vues/v_EtapeDeFiche.php");//vue à créer.
           
         }
             break;
@@ -47,12 +47,12 @@ switch ($action){
         $lesInfosFicheFrais=$pdo->getLesInfosFicheFrais($idVisiteur,$mois);
         $dateModif=$lesInfosFicheFrais['dateModif'];
         $libEtat=$lesInfosFicheFrais['libEtat'];
-        $montant=$lesInfosFicheFrais['montantValide'];
+        $montantValide=$lesInfosFicheFrais['montantValide'];
         
         $LesFraisForfait=$pdo->getLesFraisForfait($idVisiteur, $mois);
         $LesFraisHorsForfait=$pdo->getLesFraisHorsForfait($idVisiteur, $mois);
         
-        $pdo->validerFicheFrais($idVisiteur,$mois);
+        $pdo->validerFicheFrais($idVisiteur,$mois);//méthode à creer 
         
         
         include("vues/v_etatFrais.php");
