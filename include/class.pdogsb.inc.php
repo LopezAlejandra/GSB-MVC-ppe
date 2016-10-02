@@ -161,8 +161,8 @@ class PdoGsb{
   * @param type $mois
   */
         public function validerFicheFrais($idVisiteur,$mois){
-		$req="update fichefrais set fichefrais.idEtat='VA',ficheFrais.dateModif = now() 
-		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
+		$req="update fichefrais set fichefrais.idEtat='VA',fichefrais.dateModif = now() 
+		where fichefrais.idVisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->query($req);
 	}
         
