@@ -153,6 +153,20 @@ class PdoGsb{
 		$lesLignes = $res->fetchAll();
 		return $lesLignes;
 	}
+        /**
+  * Méthode qui valide une fiche de frais.
+  * Modification de l'idEtat à 'VA' et modification de la date qui sera remplacée par la date d'aujourd'hui.
+         *  
+  * @param type $idVisiteur
+  * @param type $mois
+  */
+        public function validerFicheFrais($idVisiteur,$mois){
+		$req="update fichefrais set fichefrais.idEtat='VA',ficheFrais.dateModif = now() 
+		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
+		PdoGsb::$monPdo->query($req);
+	}
+        
+        
 /**
  * Met à jour la table ligneFraisForfait
  
