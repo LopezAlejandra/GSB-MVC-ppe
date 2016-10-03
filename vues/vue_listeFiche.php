@@ -1,5 +1,10 @@
-<form action="index.php?uc=validerFrais&action=voirEtatFiche" method="post">
+<!-- Formulaire permettant d'accéder aux fuches de frais d'un individu
+     en fonction de son nom et de la date -->
+
+<form action="index.php?uc=validerFrais&action=voirEtatFiche" method="post"> 
 <legend>Visiteur et mois à sélectionner : </legend>
+
+<!-- Sélection du visiteur -->
 <label for="lstVisiteur" accesskey="n" >Visiteur : </label>
         <select id="lstVisiteur" name="lstVisiteur">
             <?php
@@ -20,6 +25,8 @@
             }
             ?>
         </select>
+
+<!-- Sélection du mois -->
         <span><label for="mois">Mois : </label></span>
             <input type="text" id="mois" name="mois" value="" placeholder="aaaamm"/>
             <br/><br/>

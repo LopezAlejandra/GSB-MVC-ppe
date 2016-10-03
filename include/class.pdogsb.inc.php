@@ -156,7 +156,7 @@ class PdoGsb{
 	}
         /**
   * Méthode qui valide une fiche de frais.
-  * Modification de l'idEtat à 'VA' et modification de la date qui sera remplacée par la date d'aujourd'hui.
+  * Modification de l'idEtat à 'VA' dans la BDD et modification de la date qui sera remplacée par la date d'aujourd'hui.
          *  
   * @param type $idVisiteur
   * @param type $mois
@@ -339,13 +339,7 @@ class PdoGsb{
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->exec($req);
 	}
-//Cette fonction enregistre les connections des utilisateurs
- // @param string $idVisiteur id de l'utilisateur qui se connecte
-    public function ajoutConnectionLog($idVisiteur){
-        $req = "INSERT INTO connectlog 
-                VALUES ('', '$idVisiteur',now())";
-        PdoGsb::$monPdo->exec($req);
-    }
+
   
     }
 

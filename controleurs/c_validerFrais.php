@@ -5,9 +5,10 @@ switch ($action){
     case 'selectionnerFiche':{
         $lesVisiteurs= $pdo->getLesVisiteurs();
         $lesCles=array_keys($lesVisiteurs);
-        include("vues/vue_listeFiche.php");
-            break;
+        include("vues/vue_listeFiche.php");    
+	break;	
     }
+    
     case 'voirEtatFiche':{//
         $mois = $_REQUEST['mois'];
         $idVisiteur=$_REQUEST["lstVisiteur"];
@@ -28,7 +29,8 @@ switch ($action){
             $lesInfosFicheFrais=$pdo->getLesInfosFicheFrais($idVisiteur,$mois);
             $dateModif=$lesInfosFicheFrais['dateModif'];
             $libEtat=$lesInfosFicheFrais['libEtat'];
-            $montant=$lesInfosFicheFrais['montantValide'];
+            $montantValide=$lesInfosFicheFrais['montantValide'];
+            
         
             $LesFraisForfait=$pdo->getLesFraisForfait($idVisiteur, $mois);
             $LesFraisHorsForfait=$pdo->getLesFraisHorsForfait($idVisiteur, $mois);

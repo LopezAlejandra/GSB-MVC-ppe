@@ -7,7 +7,7 @@ et les frais hors forfait). -->
 <label>Fiche de Frais du <?php echo $mois;?> </label>  
  <form action="index.php?uc=validerFrais&action=validerFiche" method="post">
     <br/> État : <?php echo $libEtat?> depuis le <?php echo $dateModif ?>, 
-    montant validé : <?php echo $montant ?> €.<br/><br/> <!--état de fiche avant d'être validée-->
+    montant validé : <?php echo $montantValide ?> €.<br/><br/> <!--état de fiche avant d'être validée-->
         <input class="button" type="submit" value="Valider Fiche" /> <!--Valide la fiche-->
  </form>
  <table>
