@@ -17,7 +17,7 @@
 
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
-      	private static $bdd='dbname= alopez';   		
+      	private static $bdd='dbname=alopez';   		
       	private static $user='alopez' ;    		
       	private static $mdp='dev9Chai' ;	
 		private static $monPdo;
@@ -29,6 +29,7 @@ class PdoGsb{
 	private function __construct(){
     	PdoGsb::$monPdo = new PDO(PdoGsb::$serveur.';'.PdoGsb::$bdd, PdoGsb::$user, PdoGsb::$mdp); 
 		PdoGsb::$monPdo->query("SET CHARACTER SET utf8");
+                PdoGsb::$monPdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 	public function __destruct(){
 		PdoGsb::$monPdo = null;

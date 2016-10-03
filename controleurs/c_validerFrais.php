@@ -34,7 +34,7 @@ switch ($action){
             $LesFraisHorsForfait=$pdo->getLesFraisHorsForfait($idVisiteur, $mois);
         
         
-            include("vues/v_EtapeDeFiche.php");//vue à créer.
+            include("vues/v_etapeDeFiche.php");//vue à créer.
           
         }
             break;

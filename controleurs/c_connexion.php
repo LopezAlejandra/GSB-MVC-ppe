@@ -18,7 +18,7 @@ switch($action){
                 if(!is_array($visiteur)){
                     
                     ajouterErreur("Login ou mot de passe incorrect");//Un message d'erreur s'affiche lorsque le login ou mdp est inconu
-                    include("vues/v_erreur.php");
+                    include("vues/v_erreurs.php");
                     include("vues/v_connexion.php");
                 }
                 else{
