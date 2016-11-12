@@ -1,13 +1,13 @@
 <?php
 /** 
- * Classe d'accès aux données. 
- 
+ * Classe d'accès aux données
  * Utilise les services de la classe PDO
  * pour l'application GSB
  * Les attributs sont tous statiques,
  * les 4 premiers pour la connexion
  * $monPdo de type PDO 
- * $monPdoGsb qui contiendra l'unique instance de la classe
+ * $monPdoGsb qui contien. 
+ dra l'unique instance de la classe
  
  * @package default
  * @author Cheri Bibi
@@ -88,7 +88,34 @@ class PdoGsb{
         $ligne = $rs->fetch();
         return $ligne;
     }
-
+    /**
+     * Permet de Retourner le nom et le prénom du visiteur avec l'id $id
+     * @param $id
+     * @return array
+     */
+    public function getVisiteur($id){
+        $req="Select visiteur.nom,visiteur.prenom from visiteur where visiteur.id='$id'";
+        $res= PdoGsb::$monPdo->query($req);
+        $ligne=$res->fetch();
+        return $ligne;
+    }
+    
+    /**
+     * Retourne le visiteur qui a des fiches de frais a valider.
+     */
+    
+    public function lesVisiteursParDate($date){
+        $req="Select idVisiteur, nom, prenom FROM visiteur 
+                LEFT JOIN fichefrais ON fichefrais.idvisiteur = visiteur.id 
+                WHERE idetat = 'CR' AND mois = :date";
+        $rs = self::$monPdo->prepare($req);
+        $rs->execute(['date' => $date]);
+        return $rs->fetchAll(PDO::FETCH_OBJ);
+        
+        // $res= PdoGsb::$monPdo->query($req);
+       // $ligne=$res->fetch();
+        //return $ligne;  
+    }
 /**
  * Retourne sous forme d'un tableau associatif toutes les lignes de frais hors forfait
  * concernées par les deux arguments
@@ -162,7 +189,7 @@ class PdoGsb{
   * @param type $mois
   */
         public function validerFicheFrais($idVisiteur,$mois){
-		$req="update fichefrais set fichefrais.idEtat='VA',fichefrais.dateModif = now() 
+		$req="update fichefrais set fichefrais.idEtat='CL',fichefrais.dateModif = now() 
 		where fichefrais.idVisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->query($req);
 	}
@@ -339,8 +366,26 @@ class PdoGsb{
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->exec($req);
 	}
-
-  
+        
+        public function getMoisSansValider(){
+            $res="select mois from fichefrais where idEtat='CR'";
+            return PdoGsb::$monPdo->query($res)->fetchAll();
+        }
+        
+        /**
+     * Retourne l'id, le nom et le prenom d'un visiteur dont sa fiche de frais n'est pas valider du mois passé en paramètre
+     * @param $anneeMois
+     * @return mixed
+     */
+    public function getVisiteurFraisNonValides($anneeMois){
+            
+        $req = "SELECT DISTINCT nom,prenom,id FROM fichefrais LEFT JOIN utilisateur ON utilisateur.id = idvisiteur WHERE idetat ='CR' AND mois = '$anneeMois'";
+        $fichefrais = PdoGsb::$monPdo->query($req);
+           
+        return $fichefrais->fetchAll(PDO::FETCH_OBJ);
+            
+            
+    }
     }
 
 ?>

@@ -1,9 +1,9 @@
 <?php 
         if(!isset($_REQUEST['action'])){
 	$_REQUEST['action'] = 'demandeConnexion';
-}
-$action = $_REQUEST['action'];
-switch($action){
+    }
+    $action = $_REQUEST['action'];
+    switch($action){
 	case 'demandeConnexion':{
 		include("vues/v_connexion.php");
 		break;
@@ -14,8 +14,8 @@ switch($action){
             //l'utilisateur existe dans la base de données.
                 $login = $_REQUEST['login'];
                 $mdp = $_REQUEST['mdp'];
-                $visiteur= $pdo->getInfosVisiteur($login, $mdp);
-                if(!is_array($visiteur)){
+                $utilisateur= $pdo->getInfosVisiteur($login, $mdp);
+                if(!is_array($utilisateur)){
                     
                     ajouterErreur("Login ou mot de passe incorrect");//Un message d'erreur s'affiche lorsque le login ou mdp est inconu
                     include("vues/v_erreurs.php");
@@ -23,20 +23,18 @@ switch($action){
                 }
                 else{
                  
-                    $id = $visiteur['id'];
-                    $nom =  $visiteur['nom'];
-                    $prenom = $visiteur['prenom'];
-                    $profil = $visiteur['profil'];
+                    $id = $utilisateur['id'];
+                    $nom =  $utilisateur['nom'];
+                    $prenom = $utilisateur['prenom'];
+                    $profil = $utilisateur['profil'];
                     connecter($id,$nom,$prenom,$profil);
-                    
+                    include("vues/v_sommaire.php");
       
                     if($profil=='Comptable'){// Si l'utilisateur est un comptable, le programme 
                     //                       //affichera un sommaire qui concerne seulement les comptables
-                        include("vues/vue_sommaire_comptable.php");
-                    }
-                    else{//Sinon alors l'utilisateur est un visiteur,et le sommaire qui s'affichera 
-                         //sera ce qui est dédié seulement aux visiteurs.
-                        include("vues/v_sommaire.php");
+                        header('location:index.php?uc=validationFrais&action=demandeValiderFrais');
+                            die();
+                            
                     } 
                 }
                 break;
@@ -46,5 +44,5 @@ switch($action){
 		include("vues/v_connexion.php");
 		break;
 	}
-}
+    }
 ?>            

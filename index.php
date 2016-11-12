@@ -3,6 +3,7 @@ require_once("include/fct.inc.php");
 require_once("include/class.pdogsb.inc.php");
 include("vues/v_entete.php");
 session_start();
+
 $pdo = PdoGsb::getPdoGsb();
 $estConnecte = estConnecte();
 if(!isset($_REQUEST['uc']) || !$estConnecte){
@@ -22,7 +23,7 @@ switch ($uc){
         include("controleurs/c_gererFrais.php");
             break;
     }
-    case 'validerFrais':{
+    case 'validationFrais':{
         include("controleurs/c_validerFrais.php");
             break;
     }
