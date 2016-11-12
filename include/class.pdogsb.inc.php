@@ -386,6 +386,12 @@ class PdoGsb{
             
             
     }
+    public function getFichesFraisValidees(){
+        $req= "select * from fichefrais  join visiteur on fichefrais.idvisiteur = visiteur.id where idetat = 'VA'";
+	$fiches_validees= PdoGsb::$monPdo->query($req);
+ 	return $fiches_vaidees->fetchAll();
     }
+    
+}
 
 ?>
