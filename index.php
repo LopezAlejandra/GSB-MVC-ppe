@@ -33,9 +33,10 @@ switch ($uc){
     }
     
     case 'generatePdf':{
-     include("vues/v_pdf_EtatFrais.php");
-      //creerPdfEtatFrais($);
-             break;
+        $idVisiteur=$_REQUEST['idVisiteur'];
+        $leMois=$_REQUEST['leMois'];
+        include("vues/v_pdf_EtatFrais.php");
+        break;
     }
 }
 include("vues/v_pied.php");
