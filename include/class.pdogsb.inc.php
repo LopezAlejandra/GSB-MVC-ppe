@@ -116,6 +116,10 @@ class PdoGsb{
        // $ligne=$res->fetch();
         //return $ligne;  
     }
+    
+    
+   
+    
 /**
  * Retourne sous forme d'un tableau associatif toutes les lignes de frais hors forfait
  * concernées par les deux arguments
@@ -290,8 +294,7 @@ class PdoGsb{
 	}
 /**
  * Crée un nouveau frais hors forfait pour un visiteur un mois donné
- * à partir des informations fournies en paramètre
- 
+ * à partir des informations fournies en paramètre 
  * @param $idVisiteur 
  * @param $mois sous la forme aaaamm
  * @param $libelle : le libelle du frais
@@ -382,14 +385,17 @@ class PdoGsb{
         $req = "SELECT DISTINCT nom,prenom,id FROM fichefrais LEFT JOIN utilisateur ON utilisateur.id = idvisiteur WHERE idetat ='CR' AND mois = '$anneeMois'";
         $fichefrais = PdoGsb::$monPdo->query($req);
            
-        return $fichefrais->fetchAll(PDO::FETCH_OBJ);
-            
-            
+        return $fichefrais->fetchAll(PDO::FETCH_OBJ);            
     }
+    
+    /**Mission2
+     *
+     * @return type
+     */
     public function getFichesFraisValidees(){
         $req= "select * from fichefrais  join visiteur on fichefrais.idvisiteur = visiteur.id where idetat = 'VA'";
 	$fiches_validees= PdoGsb::$monPdo->query($req);
- 	return $fiches_vaidees->fetchAll();
+ 	return $fiches_validees->fetchAll();
     }
     
 }

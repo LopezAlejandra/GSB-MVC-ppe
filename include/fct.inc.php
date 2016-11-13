@@ -198,7 +198,24 @@ function nbErreurs(){
 	   return count($_REQUEST['erreurs']);
 	}
 }
-
+function creerPdfReservation($lesFraisForfait,$lesFraisHorsForfait) {            
+            // instancie un objet de type FPDF qui permet de créer le PDF
+            require('fpdf/fpdf.php');
+            $pdf=new FPDF();
+            // ajoute une page
+            $pdf->AddPage();
+            $pdf->Image('images/logo.jpg',75);
+            // définit la police courante
+            $pdf->SetFont('Arial','B',16);
+            // ajoute une image 
+            $pdf->Cell(0,10,'Remboursement de frais',1,1,'C'); 
+            $pdf->Text(15,76,'Visiteur ');
+            $pdf->Text(75,76,'');
+            $pdf->Text(140,76,'Nom ');
+            $pdf->Text(160,76,'Prenom ');
+            //le document est terminé et envoyé au navigateur grâce à Output()
+            $pdf->Output();
+        }
 /**
  * permet d'enregistrer les informations (id, mois) d'un visiteur 
  * @param $idVisiteur
@@ -208,4 +225,7 @@ function nbErreurs(){
 	$_SESSION['idVisiteur']= $idVisiteur; 
         $_SESSION['mois']= $mois;
     }
+    
+    
+    
 ?>

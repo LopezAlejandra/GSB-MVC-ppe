@@ -29,6 +29,13 @@ switch ($uc){
     }
     case 'suiviPaiement':{
         include("controleurs/c_suivi_paiement.php");
+        break;
+    }
+    
+    case 'generatePdf':{
+     include("vues/v_pdf_EtatFrais.php");
+      //creerPdfEtatFrais($);
+             break;
     }
 }
 include("vues/v_pied.php");
