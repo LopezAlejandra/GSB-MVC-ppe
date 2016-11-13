@@ -13,6 +13,70 @@
 function estConnecte(){
   return isset($_SESSION['idVisiteur']);
 }
+
+function creerPdfEtatFrais(){    
+$idVisiteur=$_REQUEST['idVisiteurPdf'];
+$leMois=$_REQUEST['leMois'];
+$numAnnee=$_SESSION['annee'];
+$nom=$_SESSION['nom'];
+$libelle[]=$_SESSION['libelle'];
+$prenom=$_SESSION['prenom'];
+$listeMois=['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Decembre'];
+ // instancie un objet de type FPDF qui permet de créer le PDF
+require('fpdf/fpdf.php');
+$pdf=new FPDF();
+ // ajoute une page          
+$pdf->AddPage();
+$pdf->Image('images/logo_gsbmvc.jpg',70);            
+// définit la police courante
+$pdf->SetFont('Arial','B',18);
+$pdf->Cell(0,10,'REMBOURSEMENT DE FRAIS ENGAGES',1,1,'C'); 
+$pdf->SetFont('Arial','',12);
+$pdf->Ln(5);
+//Fiche Visiteur 
+$pdf->Cell(60,20,"Visiteur:");
+$pdf->Cell(60,20,$idVisiteur.' '.$nom.' '.$prenom);
+$pdf->Ln(10);
+$pdf->Cell(60,20,"Mois:");
+$pdf->Cell(60,20,$listeMois[date('n',strtotime("01-".substr($leMois,4,2).'-'.substr($leMois,0,4)))-1].' '.substr($leMois,0,4));
+$pdf->Ln(20);
+//Affiche les frais forfaitaires dans un tableau
+$pdf->SetFont('Arial','',12);
+$pdf->Cell(180,10,"Frais Forfaitaires",1,0,'C');
+$pdf-> Ln(10);
+$pdf->Cell(45,10,"Frais forfaitaires",1,0,'C');
+$pdf->Cell(45,10,"Quantité",1,0,'C');
+$pdf->Cell(45,10,"Montant unitaire",1,0,'C');
+$pdf->Cell(45,10,"Total",1,0,'C');
+ $pdf-> Ln(10);
+ $pdf->Cell(45,10,"Nuitée",1,0,'C');
+ $pdf->Cell(45,10,"",1,0,'C');//A completer.
+ $pdf->Cell(45,10,"",1,0,'C');//A completer.
+ $pdf->Cell(45,10,"",1,0,'C');//A completer.
+ $pdf->Ln(10);
+ $pdf->Cell(45,10,"Repas midi",1,0,'C');
+ $pdf->Cell(45,10,"",1,0,'C');//A completer.
+ $pdf->Cell(45,10,"",1,0,'C');//A completer.
+ $pdf->Cell(45,10,"",1,0,'C');//A completer.
+ $pdf->Ln(10);
+ $pdf->Cell(45,10,"Véhicule",1,0,'C');
+ $pdf->Cell(45,10,"",1,0,'C');//A completer.
+ $pdf->Cell(45,10,"",1,0,'C');//A completer.
+ $pdf->Cell(45,10,"",1,0,'C');//A completer.
+ $pdf->Ln(10);
+ $pdf->Cell(180,10,"Autres Frais",1,0,'C');
+ $pdf->Ln(10);
+ $pdf->Cell(60,10,"Date",1,0,'C');
+ $pdf->Cell(70,10,"Libellé",1,0,'C');
+$pdf->Cell(50,10,"Montant",1,0,'C');
+ $pdf->Ln(10);
+ $pdf->Cell(60,10," ",1,0,'C');//A completer
+ $pdf->Cell(70,10," ",1,0,'C');//A completer
+ $pdf->Cell(50,10," ",1,0,'C');//A completer
+ob_end_clean();
+//le document est terminé et envoyé au navigateur grâce à Output()
+$pdf->Output();
+}
 /**
  * Enregistre dans une variable session les infos d'un visiteur
  * @param $id 
@@ -198,24 +262,8 @@ function nbErreurs(){
 	   return count($_REQUEST['erreurs']);
 	}
 }
-function creerPdfReservation($lesFraisForfait,$lesFraisHorsForfait) {            
-            // instancie un objet de type FPDF qui permet de créer le PDF
-            require('fpdf/fpdf.php');
-            $pdf=new FPDF();
-            // ajoute une page
-            $pdf->AddPage();
-            $pdf->Image('images/logo.jpg',75);
-            // définit la police courante
-            $pdf->SetFont('Arial','B',16);
-            // ajoute une image 
-            $pdf->Cell(0,10,'Remboursement de frais',1,1,'C'); 
-            $pdf->Text(15,76,'Visiteur ');
-            $pdf->Text(75,76,'');
-            $pdf->Text(140,76,'Nom ');
-            $pdf->Text(160,76,'Prenom ');
-            //le document est terminé et envoyé au navigateur grâce à Output()
-            $pdf->Output();
-        }
+
+
 /**
  * permet d'enregistrer les informations (id, mois) d'un visiteur 
  * @param $idVisiteur
