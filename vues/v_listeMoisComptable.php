@@ -45,9 +45,7 @@
              <tr>               
                  <td><?php echo $fichehf['libelle']; ?></td>
                  <td><?php echo $fichehf['montant']; ?>€</td>
-                 <td>
-                     
-                 </td> 
+                
              </tr>
              
             <?php }?>
@@ -75,9 +73,9 @@
     </tbody>
     </table>
     <form method="POST" action="index.php?uc=validationFrais&action=validerFicheFrais">
-            <input type="submit" value="Valider la fiche">
-            <input type="hidden" name="idVisiteur" value="<?php echo $_GET['lstvisiteurs']; ?>">
-            <input type="hidden" name="mois" value="<?php echo $_GET['lstmois']; ?>">            
+        <input type="submit" value="Valider la fiche">
+        <input type="hidden" name="idVisiteur" value="<?php echo $_GET['lstvisiteurs']; ?>">
+        <input type="hidden" name="mois" value="<?php echo $_GET['lstmois']; ?>">            
     </form>
     <?php 
     

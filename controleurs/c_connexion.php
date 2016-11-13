@@ -32,7 +32,7 @@
       
                     if($profil=='Comptable'){// Si l'utilisateur est un comptable, le programme 
                     //                       //affichera un sommaire qui concerne seulement les comptables
-                        header('location:index.php?uc=validationFrais&action=demandeValiderFrais');
+                        header('location:index.php?uc=validationFrais&action=validationChoisirMois');
                             die();
                             
                     } 
