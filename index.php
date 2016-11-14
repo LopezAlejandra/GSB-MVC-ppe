@@ -23,15 +23,17 @@ switch ($uc){
         include("controleurs/c_gererFrais.php");
             break;
     }
+    //Mission1 :
     case 'validationFrais':{
         include("controleurs/c_validerFrais.php");
             break;
     }
+    //Mission2 Travail no1: 
     case 'suiviPaiement':{
         include("controleurs/c_suivi_paiement.php");
         break;
     }
-    
+    //Mission2 Travail no 2:
     case 'generatePdf':{
         $idVisiteur=$_REQUEST['idVisiteur'];
         $leMois=$_REQUEST['leMois'];

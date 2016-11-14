@@ -193,7 +193,7 @@ class PdoGsb{
   * @param type $mois
   */
         public function validerFicheFrais($idVisiteur,$mois){
-		$req="update fichefrais set fichefrais.idEtat='CL',fichefrais.dateModif = now() 
+		$req="update fichefrais set fichefrais.idEtat='VA',fichefrais.dateModif = now() 
 		where fichefrais.idVisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->query($req);
 	}
@@ -382,20 +382,30 @@ class PdoGsb{
      */
     public function getVisiteurFraisNonValides($anneeMois){
             
-        $req = "SELECT DISTINCT nom,prenom,id FROM fichefrais LEFT JOIN utilisateur ON utilisateur.id = idvisiteur WHERE idetat ='CR' AND mois = '$anneeMois'";
+        $req = "SELECT DISTINCT nom,prenom,id FROM fichefrais LEFT JOIN utilisateur ON utilisateur.id = idvisiteur "
+                . "WHERE idetat ='CR' AND mois = '$anneeMois'";
         $fichefrais = PdoGsb::$monPdo->query($req);
            
         return $fichefrais->fetchAll(PDO::FETCH_OBJ);            
     }
     
     /**Mission2
-     *
+     * Fonction qui recupère les fiches qui sont déjà validées.
      * @return type
      */
     public function getFichesFraisValidees(){
         $req= "select * from fichefrais  join visiteur on fichefrais.idvisiteur = visiteur.id where idetat = 'VA'";
 	$fiches_validees= PdoGsb::$monPdo->query($req);
  	return $fiches_validees->fetchAll();
+    }
+    /*/
+     * Fonction qui modifie l'etat de la fiche à MP (Mise en paiement)
+     */
+    public function mettreEnPaiement($idVisiteur,$mois){
+        $req="update fichefrais set idEtat='MP' where idVisiteur='$idVisiteur' and mois='$mois'";
+        $res=  PdoGsb::$monPdo->query($req);
+        return $res->fetchAll();
+        
     }
     
 }

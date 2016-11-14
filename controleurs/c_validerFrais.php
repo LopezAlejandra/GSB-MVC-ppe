@@ -14,8 +14,8 @@
             $anneeCourant = substr($mois["mois"], 0, 4);
             $moisCourant = substr($mois["mois"], 4, 2);
             if(!array_key_exists($anneeCourant, $choisirMois)){
-                $choisirMois[$anneeCourant] = [];
-                var_dump($anneeCourant);
+                $choisirMois[$anneeCourant] = []; 
+                echo "abd";
             }
             
             if(!in_array($moisCourant, $choisirMois[$anneeCourant])){
@@ -37,10 +37,7 @@
         include("vues/v_listeMoisComptable.php");
         break;
     }
-    case "voirFrais":{
-        var_dump($_POST);
-       break;
-    }
+   
     
     case "validerFicheFrais": {
         $pdo->validerFicheFrais($_POST['idVisiteur'], $_POST['mois']);

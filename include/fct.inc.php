@@ -13,13 +13,13 @@
 function estConnecte(){
   return isset($_SESSION['idVisiteur']);
 }
-
+/**
+ * Mission 2 :Générer le PDF qui affiche l'état de frais de la fiche.
+ */
 function creerPdfEtatFrais(){    
 $idVisiteur=$_REQUEST['idVisiteurPdf'];
 $leMois=$_REQUEST['leMois'];
-$numAnnee=$_SESSION['annee'];
 $nom=$_SESSION['nom'];
-$libelle[]=$_SESSION['libelle'];
 $prenom=$_SESSION['prenom'];
 $listeMois=['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Decembre'];
  // instancie un objet de type FPDF qui permet de créer le PDF
@@ -27,17 +27,19 @@ require('fpdf/fpdf.php');
 $pdf=new FPDF();
  // ajoute une page          
 $pdf->AddPage();
-$pdf->Image('images/logo_gsbmvc.jpg',70);            
+//ajoute une image
+$pdf->Image('images/logo_gsbmvc.jpg',50);            
 // définit la police courante
 $pdf->SetFont('Arial','B',18);
 $pdf->Cell(0,10,'REMBOURSEMENT DE FRAIS ENGAGES',1,1,'C'); 
 $pdf->SetFont('Arial','',12);
 $pdf->Ln(5);
-//Fiche Visiteur 
+//Informations sur le visiteur et la date 
 $pdf->Cell(60,20,"Visiteur:");
 $pdf->Cell(60,20,$idVisiteur.' '.$nom.' '.$prenom);
 $pdf->Ln(10);
 $pdf->Cell(60,20,"Mois:");
+//On recupére la chaine de caractère correspondant au mois dans la liste de mois 
 $pdf->Cell(60,20,$listeMois[date('n',strtotime("01-".substr($leMois,4,2).'-'.substr($leMois,0,4)))-1].' '.substr($leMois,0,4));
 $pdf->Ln(20);
 //Affiche les frais forfaitaires dans un tableau
@@ -48,13 +50,13 @@ $pdf->Cell(45,10,"Frais forfaitaires",1,0,'C');
 $pdf->Cell(45,10,"Quantité",1,0,'C');
 $pdf->Cell(45,10,"Montant unitaire",1,0,'C');
 $pdf->Cell(45,10,"Total",1,0,'C');
- $pdf-> Ln(10);
- $pdf->Cell(45,10,"Nuitée",1,0,'C');
- $pdf->Cell(45,10,"",1,0,'C');//A completer.
- $pdf->Cell(45,10,"",1,0,'C');//A completer.
- $pdf->Cell(45,10,"",1,0,'C');//A completer.
- $pdf->Ln(10);
- $pdf->Cell(45,10,"Repas midi",1,0,'C');
+$pdf-> Ln(10);
+$pdf->Cell(45,10,"Nuitée",1,0,'C'); 
+$pdf->Cell(45,10,"",1,0,'C');//A completer $lesFraisForfait['quantite'];
+$pdf->Cell(45,10,"",1,0,'C');//A completer.
+$pdf->Cell(45,10,"",1,0,'C');//A completer.
+$pdf->Ln(10);
+$pdf->Cell(45,10,"Repas midi",1,0,'C');
  $pdf->Cell(45,10,"",1,0,'C');//A completer.
  $pdf->Cell(45,10,"",1,0,'C');//A completer.
  $pdf->Cell(45,10,"",1,0,'C');//A completer.
@@ -73,10 +75,14 @@ $pdf->Cell(50,10,"Montant",1,0,'C');
  $pdf->Cell(60,10," ",1,0,'C');//A completer
  $pdf->Cell(70,10," ",1,0,'C');//A completer
  $pdf->Cell(50,10," ",1,0,'C');//A completer
+ $pdf->Ln(10);
+ $pdf->Image('images/signature.png',40);  
 ob_end_clean();
 //le document est terminé et envoyé au navigateur grâce à Output()
 $pdf->Output();
 }
+
+
 /**
  * Enregistre dans une variable session les infos d'un visiteur
  * @param $id 
