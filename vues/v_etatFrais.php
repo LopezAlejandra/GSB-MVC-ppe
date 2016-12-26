@@ -1,5 +1,5 @@
-﻿
-<h3>Fiche de frais du mois <?php echo $numMois."-".$numAnnee?> : 
+﻿<div style=" <?php echo (isset($visiteur) ? "margin-left: 17%;" : ''); ?>">
+<h3>Fiche de frais du mois <?php echo $numMois."-".$numAnnee?> <?php echo (isset($visiteur) ? $visiteur : ''); ?>:
     </h3>
     <div class="encadre">
     <p>
@@ -38,8 +38,7 @@
              <tr>
                 <th class="date">Date</th>
                 <th class="libelle">Libellé</th>
-                <th class='montant'>Montant</th>    
-                <th class="pdf"> PDF</th>
+                <th class='montant'>Montant</th>                
              </tr>
         <?php      
           foreach ( $lesFraisHorsForfait as $unFraisHorsForfait ) 
@@ -52,20 +51,14 @@
                 <td><?php echo $date ?></td>
                 <td><?php echo $libelle ?></td>
                 <td><?php echo $montant ?></td>
-                    <!--->Mission 2 Travail no2<!--->
-                <?php 
-                $valeur=$_SESSION['idVisiteur']; 
-                //Recupération de l'id visiteur dans une variable session?>
-                <!--->lien telecharger pdf<!--->
-                <td><a href="index.php?uc=generatePdf&idVisiteurPdf=<?php echo "$valeur"?>&leMois=<?php echo "$leMois";?>"><img src="images/icon_pdf.png">Télécharger PDF</a></td>
-            </tr>
+             </tr>
         <?php 
           }
-	?>
+		?>
     </table>
   </div>
   </div>
- 
+ </div>
 
 
 

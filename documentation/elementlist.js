@@ -1,0 +1,3 @@
+
+var ApiGen = ApiGen || {};
+ApiGen.elements = [["f","ajouterErreur()"],["f","CheckTTF()"],["f","connecter()"],["f","creerPDFFiche()"],["f","dateAnglaisVersFrancais()"],["f","dateFrancaisVersAnglais()"],["f","deconnecter()"],["f","estConnecte()"],["f","estDateDepassee()"],["f","estDateValide()"],["f","estEntierPositif()"],["f","estTableauEntiers()"],["f","flash()"],["c","FPDF"],["f","getMois()"],["f","lesQteFraisValides()"],["f","MakeFont()"],["f","MakeFontDescriptor()"],["f","MakeFontEncoding()"],["f","MakeWidthArray()"],["f","nbErreurs()"],["c","PDF"],["c","PdoGsb"],["f","ReadAFM()"],["f","ReadLong()"],["f","ReadMap()"],["f","ReadShort()"],["f","SaveToFile()"],["f","setFlash()"],["c","testsUnit"],["f","valideInfosFrais()"]];

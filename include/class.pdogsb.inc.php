@@ -1,13 +1,13 @@
-<?php
+﻿<?php
 /** 
- * Classe d'accès aux données
+ * Classe d'accès aux données. 
+ 
  * Utilise les services de la classe PDO
  * pour l'application GSB
  * Les attributs sont tous statiques,
  * les 4 premiers pour la connexion
  * $monPdo de type PDO 
- * $monPdoGsb qui contien. 
- dra l'unique instance de la classe
+ * $monPdoGsb qui contiendra l'unique instance de la classe
  
  * @package default
  * @author Cheri Bibi
@@ -27,11 +27,11 @@ class PdoGsb{
  * pour toutes les méthodes de la classe
  */				
 	private function __construct(){
-    	PdoGsb::$monPdo = new PDO(PdoGsb::$serveur.';'.PdoGsb::$bdd, PdoGsb::$user, PdoGsb::$mdp); 
+    	PdoGsb::$monPdo = new PDO(PdoGsb::$serveur.';'.PdoGsb::$bdd, PdoGsb::$user, PdoGsb::$mdp);
+        PdoGsb::$monPdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		PdoGsb::$monPdo->query("SET CHARACTER SET utf8");
-                PdoGsb::$monPdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
-	public function __destruct(){
+	public function _destruct(){
 		PdoGsb::$monPdo = null;
 	}
 /**
@@ -43,83 +43,65 @@ class PdoGsb{
  */
 	public  static function getPdoGsb(){
 		if(PdoGsb::$monPdoGsb==null){
-                    PdoGsb::$monPdoGsb= new PdoGsb();
+			PdoGsb::$monPdoGsb= new PdoGsb();
 		}
 		return PdoGsb::$monPdoGsb;  
 	}
-        
-/**
- * Retourne une liste avec tous les visiteurs
- * @param $idVisiteur
- * @return le nom et le prénom de tous les visiteurs
- */
-    public function getLesVisiteurs(){
-		$req = "select visiteur.id as idVisiteur, visiteur.nom as nom, visiteur.prenom as prenom
-                from  visiteur  
-		order by visiteur.nom asc ";
-		$res = PdoGsb::$monPdo->query($req);
-		$lesVisiteurs =array();
-		$ligne = $res->fetch();
-		while($ligne!=null)	{
-			$idVisiteur=$ligne['idVisiteur'];
-			$nomVisiteur=$ligne['nom'];
-			$prenomVisiteur=$ligne['prenom'];
-			$lesVisiteurs["$idVisiteur"]=array(
-                            "idVisiteur"=>"$idVisiteur",
-                            "nom"=> "$nomVisiteur",
-                            "prenom"  => "$prenomVisiteur");
-			$ligne = $res->fetch(); 		
-		}
-		return $lesVisiteurs;
-    }
-
 /**
  * Retourne les informations d'un visiteur
  
  * @param $login 
  * @param $mdp
- * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
+ * @return l'id, le nom, le prénom et le type sous la forme d'un tableau associatif
 */
-	 public function getInfosVisiteur($login, $mdp){
-        
-        $req = "SELECT visiteur.id AS id, visiteur.nom AS nom, visiteur.prenom AS prenom, visiteur.profil AS profil FROM visiteur 
-        WHERE visiteur.login='$login' AND visiteur.mdp='$mdp'";
-        $rs = PdoGsb::$monPdo->query($req);
-        $ligne = $rs->fetch();
-        return $ligne;
-    }
+	public function getInfosVisiteur($login, $mdp){
+		$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.profil as profil from visiteur 
+		where visiteur.login=:login and visiteur.mdp=:mdp";
+		$rs = PdoGsb::$monPdo->prepare($req);
+        $rs->execute(['login' => $login, 'mdp' => $mdp]);
+		$ligne = $rs->fetch();
+		return $ligne;
+	}
+  
+
     /**
-     * Permet de Retourner le nom et le prénom du visiteur avec l'id $id
+     * Retourne tous les visiteurs
+     * 
+     * @return array
+     */
+    public function getVisiteurs(){
+	    $req = "SELECT visiteur.id, visiteur.nom, visiteur.prenom FROM visiteur WHERE visiteur.profil = 'Visiteur'";
+        $rs = self::$monPdo->query($req);
+        return $rs->fetchAll();
+    }
+
+    /**
+     * Retourne le nom et le prénom du visiteur avec l'id $id
      * @param $id
      * @return array
      */
     public function getVisiteur($id){
-        $req="Select visiteur.nom,visiteur.prenom from visiteur where visiteur.id='$id'";
-        $res= PdoGsb::$monPdo->query($req);
-        $ligne=$res->fetch();
-        return $ligne;
+        $req = "SELECT visiteur.nom, visiteur.prenom FROM visiteur WHERE visiteur.id = :id";
+        $rs = self::$monPdo->prepare($req);
+        $rs->execute(['id' => $id]);
+        return $rs->fetch();
     }
-    
-    /**
-     * Retourne le visiteur qui a des fiches de frais a valider.
-     */
-    
-    public function lesVisiteursParDate($date){
-        $req="Select idVisiteur, nom, prenom FROM visiteur 
+/**
+ * Retourne id, nom, et prenom d'un visiteur qui a des fiches de frais
+ * à valider
+ * 
+ * @param type $date
+ * @return type
+ */
+    public function getVisiteursParDate($date){
+        $req = "SELECT id, nom, prenom FROM visiteur 
                 LEFT JOIN fichefrais ON fichefrais.idvisiteur = visiteur.id 
-                WHERE idetat = 'CR' AND mois = :date";
+                WHERE idetat = 'CL' AND mois = :date";
         $rs = self::$monPdo->prepare($req);
         $rs->execute(['date' => $date]);
         return $rs->fetchAll(PDO::FETCH_OBJ);
-        
-        // $res= PdoGsb::$monPdo->query($req);
-       // $ligne=$res->fetch();
-        //return $ligne;  
     }
-    
-    
-   
-    
+
 /**
  * Retourne sous forme d'un tableau associatif toutes les lignes de frais hors forfait
  * concernées par les deux arguments
@@ -132,7 +114,7 @@ class PdoGsb{
  * @return tous les champs des lignes de frais hors forfait sous la forme d'un tableau associatif 
 */
 	public function getLesFraisHorsForfait($idVisiteur,$mois){
-	    $req = "select * from lignefraishorsforfait where lignefraishorsforfait.idVisiteur ='$idVisiteur' 
+	    $req = "select * from lignefraishorsforfait where lignefraishorsforfait.idvisiteur ='$idVisiteur' 
 		and lignefraishorsforfait.mois = '$mois' ";	
 		$res = PdoGsb::$monPdo->query($req);
 		$lesLignes = $res->fetchAll();
@@ -143,6 +125,16 @@ class PdoGsb{
 		}
 		return $lesLignes; 
 	}
+        /**
+         * Affiche tous les mois qui sont à valider
+         * 
+         * @return type
+         */
+        
+        public function getLesMoisNonValides(){
+            $req = "SELECT mois FROM fichefrais WHERE idetat = 'CL' ORDER BY mois ASC";
+            return PdoGsb::$monPdo->query($req)->fetchAll();
+        }
 /**
  * Retourne le nombre de justificatif d'un visiteur pour un mois donné
  
@@ -165,9 +157,9 @@ class PdoGsb{
  * @return l'id, le libelle et la quantité sous la forme d'un tableau associatif 
 */
 	public function getLesFraisForfait($idVisiteur, $mois){
-		$req = "select fraisforfait.id as idfrais, fraisforfait.libelle as libelle, 
+		$req = "select fraisforfait.id as idfrais, fraisforfait.libelle as libelle, fraisforfait.montant as montant, 
 		lignefraisforfait.quantite as quantite from lignefraisforfait inner join fraisforfait 
-		on fraisforfait.id = lignefraisforfait.idfraisforfait
+		on fraisforfait.id = lignefraisforfait.idfraisforfait 
 		where lignefraisforfait.idvisiteur ='$idVisiteur' and lignefraisforfait.mois='$mois' 
 		order by lignefraisforfait.idfraisforfait";	
 		$res = PdoGsb::$monPdo->query($req);
@@ -185,20 +177,6 @@ class PdoGsb{
 		$lesLignes = $res->fetchAll();
 		return $lesLignes;
 	}
-        /**
-  * Méthode qui valide une fiche de frais.
-  * Modification de l'idEtat à 'VA' dans la BDD et modification de la date qui sera remplacée par la date d'aujourd'hui.
-         *  
-  * @param type $idVisiteur
-  * @param type $mois
-  */
-        public function validerFicheFrais($idVisiteur,$mois){
-		$req="update fichefrais set fichefrais.idEtat='VA',fichefrais.dateModif = now() 
-		where fichefrais.idVisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
-		PdoGsb::$monPdo->query($req);
-	}
-        
-        
 /**
  * Met à jour la table ligneFraisForfait
  
@@ -294,7 +272,8 @@ class PdoGsb{
 	}
 /**
  * Crée un nouveau frais hors forfait pour un visiteur un mois donné
- * à partir des informations fournies en paramètre 
+ * à partir des informations fournies en paramètre
+ 
  * @param $idVisiteur 
  * @param $mois sous la forme aaaamm
  * @param $libelle : le libelle du frais
@@ -349,11 +328,11 @@ class PdoGsb{
  * @return un tableau avec des champs de jointure entre une fiche de frais et la ligne d'état 
 */	
 	public function getLesInfosFicheFrais($idVisiteur,$mois){
-		$req = "select fichefrais.idEtat as idEtat, fichefrais.dateModif as dateModif, fichefrais.nbJustificatifs as nbJustificatifs, 
-			fichefrais.montantValide as montantValide, etat.libelle as libEtat from  fichefrais inner join etat on fichefrais.idEtat = etat.id 
+		$req = "select fichefrais.idetat as idEtat, fichefrais.datemodif as dateModif, fichefrais.nbjustificatifs as nbJustificatifs, 
+			fichefrais.montantvalide as montantValide, etat.libelle as libEtat from  fichefrais inner join etat on fichefrais.idetat = etat.id 
 			where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		$res = PdoGsb::$monPdo->query($req);
-		$laLigne=$res->fetch();
+		$laLigne = $res->fetch();
 		return $laLigne;
 	}
 /**
@@ -365,49 +344,112 @@ class PdoGsb{
  */
  
 	public function majEtatFicheFrais($idVisiteur,$mois,$etat){
-		$req = "update ficheFrais set idEtat = '$etat', dateModif = now() 
+		$req = "update fichefrais set idEtat = '$etat', dateModif = now() 
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->exec($req);
 	}
-        
-        public function getMoisSansValider(){
-            $res="select mois from fichefrais where idEtat='CR'";
-            return PdoGsb::$monPdo->query($res)->fetchAll();
-        }
-        
-        /**
+
+    /**
      * Retourne l'id, le nom et le prenom d'un visiteur dont sa fiche de frais n'est pas valider du mois passé en paramètre
      * @param $anneeMois
      * @return mixed
      */
     public function getVisiteurFraisNonValides($anneeMois){
             
-        $req = "SELECT DISTINCT nom,prenom,id FROM fichefrais LEFT JOIN utilisateur ON utilisateur.id = idvisiteur "
-                . "WHERE idetat ='CR' AND mois = '$anneeMois'";
+        $req = "SELECT DISTINCT nom,prenom,id FROM fichefrais LEFT JOIN utilisateur ON utilisateur.id = idvisiteur WHERE idetat ='CR' AND mois = '$anneeMois'";
         $fichefrais = PdoGsb::$monPdo->query($req);
            
-        return $fichefrais->fetchAll(PDO::FETCH_OBJ);            
+        return $fichefrais->fetchAll(PDO::FETCH_OBJ);
+            
+            
+    }
+
+    /**
+     * Met à jour une ligne frais hors forfait avec le label [REFUSER]
+     * @param $id_frais
+     * @return bool
+     */
+    public function majFraisHorsForfait($id_frais){
+        $q = self::$monPdo->prepare("SELECT libelle FROM lignefraishorsforfait WHERE id=:id");
+        $q->execute(['id' => $id_frais]);
+        $item = $q->fetch(PDO::FETCH_OBJ);
+        $libelle = $item->libelle;
+        $libelle = "[REFUSER]" . $libelle;
+        if(strlen($libelle) > 100){
+            $libelle = substr($libelle, 0, 97) . '...';
+        }
+        $q = self::$monPdo->prepare("UPDATE lignefraishorsforfait SET libelle=:libelle WHERE id=:id");
+        $q->execute(['libelle' => $libelle, 'id' => $id_frais]);
+        return true;
+    }
+
+    /**
+     * Créé une nouvelle fiche frais
+     * @param $visiteur_id
+     * @param $mois
+     */
+    public function creeNouvelleFicheFrais($visiteur_id, $mois){
+        $q = self::$monPdo->prepare("INSERT INTO fichefrais SET idvisiteur=:idvisiteur, mois=:mois, nbjustificatifs=0, montantvalide=0, datemodif=:datemodif, idetat=:etat");
+        $q->execute(['idvisiteur' => $visiteur_id, 'mois' => $mois, 'datemodif' => date('Y-m-d'), 'etat' => 'CR']);
+        $frais = self::$monPdo->query("SELECT * FROM fraisforfait")->fetchAll(PDO::FETCH_OBJ);
+        foreach ($frais as $unFrais){
+            $q = self::$monPdo->prepare("INSERT INTO lignefraisforfait SET idvisiteur=:id_visiteur, mois=:mois, idfraisforfait=:idfraisforfait, quantite=0");
+            $q->execute(['id_visiteur' => $visiteur_id, 'mois' => $mois, 'idfraisforfait' => $unFrais->id]);
+        }
+    }
+
+    /**
+     * Reporte les frais hors forfait
+     * @param $idFrais
+     * @param $visiteur
+     * @param $mois
+     */
+    public function reporterHorsForfait($idFrais, $visiteur, $mois, $libelle, $montant){
+        $moisDisponibles = $this->dernierMoisSaisi($visiteur);
+
+        $month = substr($mois, 4, 2);
+        $year = substr($mois, 0, 4);
+
+        $moisSuivant = date('Ym', strtotime("$year-$month-01 + 1 month"));
+        if($moisDisponibles === $mois){
+            $this->creeNouvelleFicheFrais($visiteur, $moisSuivant);
+        }
+
+        $this->creeNouveauFraisHorsForfait($visiteur, $moisSuivant, $libelle, date('d/m/Y'), $montant);
+        $this->supprimerFraisHorsForfait($idFrais);
+    }
+
+    /**
+     * Valide une fiche de frais
+     * @param $visiteur_id
+     * @param $mois
+     */
+    public function validerFicheFrais($visiteur_id, $mois){
+        $q = self::$monPdo->prepare("UPDATE fichefrais SET idetat='VA' WHERE idvisiteur=:idvisiteur AND mois=:mois");
+        $q->execute(['idvisiteur' => $visiteur_id, 'mois' => $mois]);
+    }
+
+    /**
+     * Récupère un tableau de mois avec l'état 'VA'
+     * @return array
+     */
+    public function getFichesValides(){
+        $q = self::$monPdo->query("SELECT * FROM fichefrais LEFT JOIN visiteur ON fichefrais.idvisiteur = visiteur.id WHERE idetat = 'VA' ORDER BY mois ASC");
+        return $q->fetchAll();
+    }
+
+    /**
+     * Met une fiche de frais en paiement (état 'MP')
+     * @param $idVisiteur
+     * @param $mois
+     */
+    public function mettreEnPaiement($idVisiteur, $mois){
+        $q = self::$monPdo->prepare("UPDATE fichefrais SET idetat = 'MP' WHERE idvisiteur=:idvisiteur AND mois=:mois");
+        $q->execute(['idvisiteur' => $idVisiteur, 'mois' => $mois]);
     }
     
-    /**Mission2
-     * Fonction qui recupère les fiches qui sont déjà validées.
-     * @return type
-     */
-    public function getFichesFraisValidees(){
-        $req= "select * from fichefrais  join visiteur on fichefrais.idvisiteur = visiteur.id where idetat = 'VA'";
-	$fiches_validees= PdoGsb::$monPdo->query($req);
- 	return $fiches_validees->fetchAll();
-    }
-    /*/
-     * Fonction qui modifie l'etat de la fiche à MP (Mise en paiement)
-     */
-    public function mettreEnPaiement($idVisiteur,$mois){
-        $req="update fichefrais set idEtat='MP' where idVisiteur='$idVisiteur' and mois='$mois'";
-        $res=  PdoGsb::$monPdo->query($req);
-        return $res->fetchAll();
-        
-    }
+    
+
     
 }
-
 ?>

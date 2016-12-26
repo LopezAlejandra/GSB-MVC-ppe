@@ -16,8 +16,17 @@
 			?>
 					<p>
 						<label for="idFrais"><?php echo $libelle ?></label>
-						<input type="text" id="idFrais" name="lesFrais[<?php echo $idFrais?>]" size="10" maxlength="5" value="<?php echo $quantite?>" >
-					</p>
+                                                <?php if($unFrais['idfrais'] === 'km'): ?>
+                                                <select name="lesFrais[<?= $unFrais['idfrais'] ?>]">
+                                                    <?php foreach($puissances as $puissance): ?>
+                                                        <option value="<?= $puissance['id'] ?>"><?= $puissance['libelle'] ?> - <?= $puissance['montant'] ?>€</option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <input type="text" name="puissance_qte" value="<?= $quantite ?>">
+						<?php else: ?>
+                                                    <input type="text" id="idFrais" name="lesFrais[<?php echo $idFrais?>]" size="10" maxlength="5" value="<?php echo $quantite?>" >
+                                                <?php endif; ?>
+                                        </p>
 			
 			<?php
 				}
