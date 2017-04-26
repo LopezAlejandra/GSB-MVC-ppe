@@ -8,7 +8,7 @@ function creerPDFFiche($laFiche){
     $pdf->AddPage();
     $pdf->Image("images/logo.jpg", 77, 10, 50, 36);
     $pdf->SetFont('Arial', 'B', 24);
-    $pdf->Cell(0, 100, strtoupper(utf8_decode("remboursement de frais engages")), 0, 0, 'C');
+    $pdf->Cell(0, 100, utf8_decode("Remboursement de frais engages"), 0, 0, 'C');
     $pdf->SetFont('Arial', '', 12);
     $pdf->Ln(80);
     // Présentation fiche Visiteur
