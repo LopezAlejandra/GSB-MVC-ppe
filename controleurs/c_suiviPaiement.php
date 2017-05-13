@@ -20,11 +20,9 @@ switch($action){
             }else {
                 $laFiche['forfait'] = $laFiche['hors_forfait'] = [];
             }
-
-           
         }
 
-        require "vues/v_demandeSuiviPaiement.php";
+        require "vues/v_suiviPaiement.php";
         break;
 
     case 'generatePDF':
@@ -45,7 +43,7 @@ switch($action){
                 die();
             }
         }
-        require "vues/generatePDF.php";
+        require "vues/v_generatePDF.php";
         creerPDFFiche($laFiche);
         break;
 

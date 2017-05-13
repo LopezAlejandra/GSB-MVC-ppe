@@ -14,7 +14,7 @@
         <input type="hidden" name="action" value="demandeValiderFrais">
         <input type="hidden" name="part" value="2">
         <?php if($part === "2"): ?>
-            <label for="lstVisiteurs">Liste des visiteurs :</label>
+            <label for="lstvisiteurs">Liste des visiteurs :</label>
             <select name="lstvisiteurs" id="lstVisiteurs">
                 <?php foreach($visiteurs as $visiteur): ?>
                     <option value="<?php echo $visiteur->id; ?>" <?php echo (isset($_GET['lstvisiteurs']) && $_GET['lstvisiteurs'] === $visiteur->id) ? 'selected' : ''; ?>><?php echo $visiteur->nom . " " . $visiteur->prenom; ?></option>
@@ -26,7 +26,7 @@
     <?php if(isset($afficherFiche) && $afficherFiche): ?>
         <h2>Les frais hors forfait</h2>
         <p>
-            Etat : <?= $libEtat ?> depuis le <?= $dateModif ?><br />
+            Etat : <?= $libelleEtat ?> depuis le <?= $dateModif ?><br />
             Montant validé : <?= $montantValide; ?>
         </p>
         <table style="width:100%">

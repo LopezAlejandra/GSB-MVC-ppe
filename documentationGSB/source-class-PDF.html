@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="robots" content="noindex">
+
+	<title>File fpdf/tutoriel/tuto2.php | gsbMVC</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Packages</h3>
+			<ul>
+				<li>
+					<a href="package-default.html">
+						default					</a>
+
+						</li>
+				<li>
+					<a href="package-None.html">
+						None					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-FPDF.html">FPDF</a></li>
+				<li><a href="class-PDF.html" class="invalid">PDF</a></li>
+				<li><a href="class-PdoGsb.html">PdoGsb</a></li>
+				<li><a href="class-testsUnit.html">testsUnit</a></li>
+			</ul>
+
+
+
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-ajouterErreur.html">ajouterErreur</a></li>
+				<li><a href="function-CheckTTF.html">CheckTTF</a></li>
+				<li><a href="function-connecter.html">connecter</a></li>
+				<li><a href="function-creerPDFFiche.html">creerPDFFiche</a></li>
+				<li><a href="function-dateAnglaisVersFrancais.html">dateAnglaisVersFrancais</a></li>
+				<li><a href="function-dateFrancaisVersAnglais.html">dateFrancaisVersAnglais</a></li>
+				<li><a href="function-deconnecter.html">deconnecter</a></li>
+				<li><a href="function-estConnecte.html">estConnecte</a></li>
+				<li><a href="function-estDateDepassee.html">estDateDepassee</a></li>
+				<li><a href="function-estDateValide.html">estDateValide</a></li>
+				<li><a href="function-estEntierPositif.html">estEntierPositif</a></li>
+				<li><a href="function-estTableauEntiers.html">estTableauEntiers</a></li>
+				<li><a href="function-flash.html">flash</a></li>
+				<li><a href="function-getMois.html">getMois</a></li>
+				<li><a href="function-lesQteFraisValides.html">lesQteFraisValides</a></li>
+				<li><a href="function-MakeFont.html">MakeFont</a></li>
+				<li><a href="function-MakeFontDescriptor.html">MakeFontDescriptor</a></li>
+				<li><a href="function-MakeFontEncoding.html">MakeFontEncoding</a></li>
+				<li><a href="function-MakeWidthArray.html">MakeWidthArray</a></li>
+				<li><a href="function-nbErreurs.html">nbErreurs</a></li>
+				<li><a href="function-ReadAFM.html">ReadAFM</a></li>
+				<li><a href="function-ReadLong.html">ReadLong</a></li>
+				<li><a href="function-ReadMap.html">ReadMap</a></li>
+				<li><a href="function-ReadShort.html">ReadShort</a></li>
+				<li><a href="function-SaveToFile.html">SaveToFile</a></li>
+				<li><a href="function-setFlash.html">setFlash</a></li>
+				<li><a href="function-valideInfosFrais.html">valideInfosFrais</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+<span>Package</span>			</li>
+			<li>
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<pre><code><span id="1" class="l"><a href="#1"> 1: </a><span class="xlang">&lt;?php</span>
+</span><span id="2" class="l"><a href="#2"> 2: </a><span class="php-keyword1">require</span>(<span class="php-quote">'../fpdf.php'</span>);
+</span><span id="3" class="l"><a href="#3"> 3: </a>
+</span><span id="4" class="l"><a href="#4"> 4: </a><span class="php-keyword1">class</span> PDF <span class="php-keyword1">extends</span> FPDF
+</span><span id="5" class="l"><a href="#5"> 5: </a>{
+</span><span id="6" class="l"><a href="#6"> 6: </a><span class="php-comment">//</span>
+</span><span id="7" class="l"><a href="#7"> 7: </a><span class="php-keyword1">function</span> <span class="php-keyword2">Header</span>()
+</span><span id="8" class="l"><a href="#8"> 8: </a>{
+</span><span id="9" class="l"><a href="#9"> 9: </a>    <span class="php-comment">//Logo</span>
+</span><span id="10" class="l"><a href="#10">10: </a>    <span class="php-var">$this</span>-&gt;Image(<span class="php-quote">'logo_pb.png'</span>,<span class="php-num">10</span>,<span class="php-num">8</span>,<span class="php-num">33</span>);
+</span><span id="11" class="l"><a href="#11">11: </a>    <span class="php-comment">//Police Arial gras 15</span>
+</span><span id="12" class="l"><a href="#12">12: </a>    <span class="php-var">$this</span>-&gt;SetFont(<span class="php-quote">'Arial'</span>,<span class="php-quote">'B'</span>,<span class="php-num">15</span>);
+</span><span id="13" class="l"><a href="#13">13: </a>    <span class="php-comment">//</span>
+</span><span id="14" class="l"><a href="#14">14: </a>    <span class="php-var">$this</span>-&gt;Cell(<span class="php-num">80</span>);
+</span><span id="15" class="l"><a href="#15">15: </a>    <span class="php-comment">//Titre</span>
+</span><span id="16" class="l"><a href="#16">16: </a>    <span class="php-var">$this</span>-&gt;Cell(<span class="php-num">30</span>,<span class="php-num">10</span>,<span class="php-quote">'Titre'</span>,<span class="php-num">1</span>,<span class="php-num">0</span>,<span class="php-quote">'C'</span>);
+</span><span id="17" class="l"><a href="#17">17: </a>    <span class="php-comment">//Saut de ligne</span>
+</span><span id="18" class="l"><a href="#18">18: </a>    <span class="php-var">$this</span>-&gt;Ln(<span class="php-num">20</span>);
+</span><span id="19" class="l"><a href="#19">19: </a>}
+</span><span id="20" class="l"><a href="#20">20: </a>
+</span><span id="21" class="l"><a href="#21">21: </a><span class="php-comment">//Pied de page</span>
+</span><span id="22" class="l"><a href="#22">22: </a><span class="php-keyword1">function</span> Footer()
+</span><span id="23" class="l"><a href="#23">23: </a>{
+</span><span id="24" class="l"><a href="#24">24: </a>    <span class="php-comment">//</span>
+</span><span id="25" class="l"><a href="#25">25: </a>    <span class="php-var">$this</span>-&gt;SetY(-<span class="php-num">15</span>);
+</span><span id="26" class="l"><a href="#26">26: </a>    <span class="php-comment">//Police Arial italique 8</span>
+</span><span id="27" class="l"><a href="#27">27: </a>    <span class="php-var">$this</span>-&gt;SetFont(<span class="php-quote">'Arial'</span>,<span class="php-quote">'I'</span>,<span class="php-num">8</span>);
+</span><span id="28" class="l"><a href="#28">28: </a>    <span class="php-comment">//</span>
+</span><span id="29" class="l"><a href="#29">29: </a>    <span class="php-var">$this</span>-&gt;Cell(<span class="php-num">0</span>,<span class="php-num">10</span>,<span class="php-quote">'Page '</span>.<span class="php-var">$this</span>-&gt;PageNo().<span class="php-quote">'/{nb}'</span>,<span class="php-num">0</span>,<span class="php-num">0</span>,<span class="php-quote">'C'</span>);
+</span><span id="30" class="l"><a href="#30">30: </a>}
+</span><span id="31" class="l"><a href="#31">31: </a>}
+</span><span id="32" class="l"><a href="#32">32: </a>
+</span><span id="33" class="l"><a href="#33">33: </a><span class="php-comment">//</span>
+</span><span id="34" class="l"><a href="#34">34: </a><span class="php-var">$pdf</span>=<span class="php-keyword1">new</span> PDF();
+</span><span id="35" class="l"><a href="#35">35: </a><span class="php-var">$pdf</span>-&gt;AliasNbPages();
+</span><span id="36" class="l"><a href="#36">36: </a><span class="php-var">$pdf</span>-&gt;AddPage();
+</span><span id="37" class="l"><a href="#37">37: </a><span class="php-var">$pdf</span>-&gt;SetFont(<span class="php-quote">'Times'</span>,<span class="php-quote">''</span>,<span class="php-num">12</span>);
+</span><span id="38" class="l"><a href="#38">38: </a><span class="php-keyword1">for</span>(<span class="php-var">$i</span>=<span class="php-num">1</span>;<span class="php-var">$i</span>&lt;=<span class="php-num">40</span>;<span class="php-var">$i</span>++)
+</span><span id="39" class="l"><a href="#39">39: </a>    <span class="php-var">$pdf</span>-&gt;Cell(<span class="php-num">0</span>,<span class="php-num">10</span>,<span class="php-quote">''</span>.<span class="php-var">$i</span>,<span class="php-num">0</span>,<span class="php-num">1</span>);
+</span><span id="40" class="l"><a href="#40">40: </a><span class="php-var">$pdf</span>-&gt;Output();
+</span><span id="41" class="l"><a href="#41">41: </a><span class="xlang">?&gt;</span>
+</span><span id="42" class="l"><a href="#42">42: </a></span></code></pre>
+
+	<div id="footer">
+		gsbMVC API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js?b0190b762c44aef8a22d425001e65a34c3fde803"></script>
+<script src="elementlist.js?67660bdcc184ecf588dfade5c6ca2ceae2a9d07b"></script>
+</body>
+</html>

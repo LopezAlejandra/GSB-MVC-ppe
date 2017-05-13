@@ -39,7 +39,7 @@ switch($action){
 			connecter($id,$nom,$prenom, $type);
                         include("vues/v_sommaire.php");
                         if($type === "Comptable"){
-                            header('location:index.php?uc=gererValidationFrais&action=demandeValiderFrais');
+                            header('location:index.php?uc=validationFrais&action=demandeValiderFrais');
                             die();
                         }
 		}

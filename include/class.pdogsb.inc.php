@@ -18,8 +18,8 @@
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
       	private static $bdd='dbname=alopez';   		
-      	private static $user='alopez' ;    		
-      	private static $mdp='dev9Chai' ;	
+      	private static $user='alopez';    		
+      	private static $mdp='dev9Chai';	
 		private static $monPdo;
 		private static $monPdoGsb=null;
 /**
@@ -28,7 +28,7 @@ class PdoGsb{
  */				
 	private function __construct(){
     	PdoGsb::$monPdo = new PDO(PdoGsb::$serveur.';'.PdoGsb::$bdd, PdoGsb::$user, PdoGsb::$mdp);
-        PdoGsb::$monPdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        PdoGsb::$monPdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 		PdoGsb::$monPdo->query("SET CHARACTER SET utf8");
 	}
 	public function _destruct(){
@@ -328,7 +328,7 @@ class PdoGsb{
  * @return un tableau avec des champs de jointure entre une fiche de frais et la ligne d'état 
 */	
 	public function getLesInfosFicheFrais($idVisiteur,$mois){
-		$req = "select fichefrais.idetat as idEtat, fichefrais.datemodif as dateModif, fichefrais.nbjustificatifs as nbJustificatifs, 
+		$req = "select fichefrais.idvisiteur as idVisiteur, fichefrais.mois as mois, fichefrais.idetat as idEtat, fichefrais.datemodif as dateModif, fichefrais.nbjustificatifs as nbJustificatifs, 
 			fichefrais.montantvalide as montantValide, etat.libelle as libEtat from  fichefrais inner join etat on fichefrais.idetat = etat.id 
 			where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		$res = PdoGsb::$monPdo->query($req);
