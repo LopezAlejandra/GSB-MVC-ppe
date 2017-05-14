@@ -30,6 +30,18 @@ switch($action){
 		$dateModif =  $lesInfosFicheFrais['dateModif'];
 		$dateModif =  dateAnglaisVersFrancais($dateModif);
 		include("vues/v_etatFrais.php");
+                break;
 	}
+        
+        case 'generatePDF':{
+            $leMois=$_REQUEST['leMois'];
+            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idUtilisateur,$leMois);
+            $lesFraisForfait= $pdo->getLesFraisForfait($idUtilisateur,$leMois);
+        require "vues/v_generatePDFVisiteur.php";
+        creerPDFFiche($lesFraisHorsForfait,$lesFraisForfait);
+        break;
+        }
 }
+
+
 ?>

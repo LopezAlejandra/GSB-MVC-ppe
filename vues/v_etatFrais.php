@@ -56,6 +56,8 @@
           }
 		?>
     </table>
+                    <td><a href="index.php?uc=etatFrais&action=generatePDF&idVisiteur=<?php echo $_SESSION['idUtilisateur']?>&leMois=<?php echo $leMois;?>"><img src="images/icon_pdf.png" width="28px">Télécharger PDF</a></h3>
+        
   </div>
   </div>
  </div>

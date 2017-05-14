@@ -10,9 +10,9 @@
 			</li>
             <?php if($_SESSION['type'] === "Comptable"): ?>
                 <li class="smenu">
-                    <a href="index.php?uc=gererValidationFrais&action=demandeValiderFrais">Valider les fiches de frais</a>
+                    <a href="index.php?uc=validationFrais&action=demandeValiderFrais">Valider les fiches de frais</a>
                 </li>
-                <li class="smanu">
+                <li class="smenu">
                     <a href="index.php?uc=suiviPaiement&action=demandeSuiviPaiement">Suivi de paiement</a>
                 </li>
             <?php else: ?>

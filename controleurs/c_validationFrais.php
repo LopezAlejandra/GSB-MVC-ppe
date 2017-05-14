@@ -43,14 +43,14 @@ switch($action){
     case "actualiserFrais": {
         $pdo->majFraisForfait($_POST['idvisiteur'], $_POST['mois'], $_POST['frais']);
         setFlash("Informations actualisées");
-        header("location:index.php?uc=gererValidationFrais&action=demandeValiderFrais&part=2&lstmois={$_POST['mois']}&lstvisiteurs={$_POST['idvisiteur']}");
+        header("location:index.php?uc=validationFrais&action=demandeValiderFrais&part=2&lstmois={$_POST['mois']}&lstvisiteurs={$_POST['idvisiteur']}");
         break;
     }
 
     case "supprimerFrais": {
         $pdo->majFraisHorsForfait($_POST['idfrais']);
         setFlash("Informations actualisées");
-        header("location:index.php?uc=gererValidationFrais&action=demandeValiderFrais&part=2&lstmois={$_POST['lstmois']}&lstvisiteurs={$_POST['lstvisiteurs']}");
+        header("location:index.php?uc=validationFrais&action=demandeValiderFrais&part=2&lstmois={$_POST['lstmois']}&lstvisiteurs={$_POST['lstvisiteurs']}");
         break;
     }
 
@@ -61,14 +61,14 @@ switch($action){
         $libelle = $_POST['libelle'];
         $montant = $_POST['montant'];
         $pdo->reporterHorsForfait($idFrais, $visiteur, $mois, $libelle, $montant);
-        header("location:index.php?uc=gererValidationFrais&action=demandeValiderFrais&part=2&lstmois=$mois&lstvisiteurs=$visiteur");
+        header("location:index.php?uc=validationFrais&action=demandeValiderFrais&part=2&lstmois=$mois&lstvisiteurs=$visiteur");
         break;
     }
 
     case "validerFicheFrais": {
         $pdo->validerFicheFrais($_POST['idvisiteur'], $_POST['mois']);
         setFlash("La fiche a bien été validée");
-        header('location:index.php?uc=gererValidationFrais&action=demandeValiderFrais');
+        header('location:index.php?uc=validationFrais&action=demandeValiderFrais');
         break;
     }
    
