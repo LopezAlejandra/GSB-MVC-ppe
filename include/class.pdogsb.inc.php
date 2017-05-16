@@ -47,6 +47,11 @@ class PdoGsb{
 		}
 		return PdoGsb::$monPdoGsb;  
 	}
+        
+         public  static function getPdo(){
+		
+		return PdoGsb::$monPdo;  
+	}
 /**
  * Retourne les informations d'un visiteur
  
@@ -96,7 +101,7 @@ class PdoGsb{
     public function getVisiteursParDate($date){
         $req = "SELECT id, nom, prenom FROM visiteur 
                 LEFT JOIN fichefrais ON fichefrais.idvisiteur = visiteur.id 
-                WHERE idetat = 'CL' AND mois = :date";
+                WHERE idetat = 'CR'  AND mois = :date";
         $rs = self::$monPdo->prepare($req);
         $rs->execute(['date' => $date]);
         return $rs->fetchAll(PDO::FETCH_OBJ);
@@ -121,7 +126,7 @@ class PdoGsb{
 		$nbLignes = count($lesLignes);
 		for ($i=0; $i<$nbLignes; $i++){
 			$date = $lesLignes[$i]['date'];
-			$lesLignes[$i]['date'] =  dateAnglaisVersFrancais($date);
+			$lesLignes[$i]['date'] = dateAnglaisVersFrancais($date);
 		}
 		return $lesLignes; 
 	}
@@ -132,7 +137,7 @@ class PdoGsb{
          */
         
         public function getLesMoisNonValides(){
-            $req = "SELECT mois FROM fichefrais WHERE idetat = 'CL' ORDER BY mois ASC";
+            $req = "SELECT mois FROM fichefrais WHERE idetat = 'CR' ORDER BY mois ASC";
             return PdoGsb::$monPdo->query($req)->fetchAll();
         }
 /**
@@ -282,8 +287,8 @@ class PdoGsb{
 */
 	public function creeNouveauFraisHorsForfait($idVisiteur,$mois,$libelle,$date,$montant){
 		$dateFr = dateFrancaisVersAnglais($date);
-		$req = "insert into lignefraishorsforfait 
-		values('','$idVisiteur','$mois','$libelle','$dateFr','$montant')";
+		$req = "insert into lignefraishorsforfait(idVisiteur,mois,libelle, date, montant) 
+		values('$idVisiteur','$mois','$libelle','$dateFr','$montant')";
 		PdoGsb::$monPdo->exec($req);
 	}
 /**

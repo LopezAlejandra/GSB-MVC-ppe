@@ -53,7 +53,7 @@
 				<li><a href="function-ajouterErreur.html">ajouterErreur</a></li>
 				<li><a href="function-CheckTTF.html">CheckTTF</a></li>
 				<li><a href="function-connecter.html">connecter</a></li>
-				<li><a href="function-creerPDFFiche.html">creerPDFFiche</a></li>
+				<li><a href="function-creerPDFFiche.html" class="invalid">creerPDFFiche</a></li>
 				<li><a href="function-dateAnglaisVersFrancais.html">dateAnglaisVersFrancais</a></li>
 				<li><a href="function-dateFrancaisVersAnglais.html">dateFrancaisVersAnglais</a></li>
 				<li><a href="function-deconnecter.html">deconnecter</a></li>
@@ -116,14 +116,14 @@
 </span><span id="3" class="l"><a href="#3"> 3: </a>
 </span><span id="4" class="l"><a href="#4"> 4: </a><span class="php-keyword1">class</span> PDF <span class="php-keyword1">extends</span> FPDF
 </span><span id="5" class="l"><a href="#5"> 5: </a>{
-</span><span id="6" class="l"><a href="#6"> 6: </a><span class="php-comment">//</span>
+</span><span id="6" class="l"><a href="#6"> 6: </a><span class="php-comment">//En-t�te</span>
 </span><span id="7" class="l"><a href="#7"> 7: </a><span class="php-keyword1">function</span> <span class="php-keyword2">Header</span>()
 </span><span id="8" class="l"><a href="#8"> 8: </a>{
 </span><span id="9" class="l"><a href="#9"> 9: </a>    <span class="php-comment">//Logo</span>
 </span><span id="10" class="l"><a href="#10">10: </a>    <span class="php-var">$this</span>-&gt;Image(<span class="php-quote">'logo_pb.png'</span>,<span class="php-num">10</span>,<span class="php-num">8</span>,<span class="php-num">33</span>);
 </span><span id="11" class="l"><a href="#11">11: </a>    <span class="php-comment">//Police Arial gras 15</span>
 </span><span id="12" class="l"><a href="#12">12: </a>    <span class="php-var">$this</span>-&gt;SetFont(<span class="php-quote">'Arial'</span>,<span class="php-quote">'B'</span>,<span class="php-num">15</span>);
-</span><span id="13" class="l"><a href="#13">13: </a>    <span class="php-comment">//</span>
+</span><span id="13" class="l"><a href="#13">13: </a>    <span class="php-comment">//D�calage � droite</span>
 </span><span id="14" class="l"><a href="#14">14: </a>    <span class="php-var">$this</span>-&gt;Cell(<span class="php-num">80</span>);
 </span><span id="15" class="l"><a href="#15">15: </a>    <span class="php-comment">//Titre</span>
 </span><span id="16" class="l"><a href="#16">16: </a>    <span class="php-var">$this</span>-&gt;Cell(<span class="php-num">30</span>,<span class="php-num">10</span>,<span class="php-quote">'Titre'</span>,<span class="php-num">1</span>,<span class="php-num">0</span>,<span class="php-quote">'C'</span>);
@@ -134,22 +134,22 @@
 </span><span id="21" class="l"><a href="#21">21: </a><span class="php-comment">//Pied de page</span>
 </span><span id="22" class="l"><a href="#22">22: </a><span class="php-keyword1">function</span> Footer()
 </span><span id="23" class="l"><a href="#23">23: </a>{
-</span><span id="24" class="l"><a href="#24">24: </a>    <span class="php-comment">//</span>
+</span><span id="24" class="l"><a href="#24">24: </a>    <span class="php-comment">//Positionnement � 1,5 cm du bas</span>
 </span><span id="25" class="l"><a href="#25">25: </a>    <span class="php-var">$this</span>-&gt;SetY(-<span class="php-num">15</span>);
 </span><span id="26" class="l"><a href="#26">26: </a>    <span class="php-comment">//Police Arial italique 8</span>
 </span><span id="27" class="l"><a href="#27">27: </a>    <span class="php-var">$this</span>-&gt;SetFont(<span class="php-quote">'Arial'</span>,<span class="php-quote">'I'</span>,<span class="php-num">8</span>);
-</span><span id="28" class="l"><a href="#28">28: </a>    <span class="php-comment">//</span>
+</span><span id="28" class="l"><a href="#28">28: </a>    <span class="php-comment">//Num�ro de page</span>
 </span><span id="29" class="l"><a href="#29">29: </a>    <span class="php-var">$this</span>-&gt;Cell(<span class="php-num">0</span>,<span class="php-num">10</span>,<span class="php-quote">'Page '</span>.<span class="php-var">$this</span>-&gt;PageNo().<span class="php-quote">'/{nb}'</span>,<span class="php-num">0</span>,<span class="php-num">0</span>,<span class="php-quote">'C'</span>);
 </span><span id="30" class="l"><a href="#30">30: </a>}
 </span><span id="31" class="l"><a href="#31">31: </a>}
 </span><span id="32" class="l"><a href="#32">32: </a>
-</span><span id="33" class="l"><a href="#33">33: </a><span class="php-comment">//</span>
-</span><span id="34" class="l"><a href="#34">34: </a><span class="php-var">$pdf</span>=<span class="php-keyword1">new</span> PDF();
+</span><span id="33" class="l"><a href="#33">33: </a><span class="php-comment">//Instanciation de la classe d�riv�e</span>
+</span><span id="34" class="l"><a href="#34">34: </a><span class="php-var">$pdf</span>=<span class="php-keyword1">new</span> FPDF();
 </span><span id="35" class="l"><a href="#35">35: </a><span class="php-var">$pdf</span>-&gt;AliasNbPages();
 </span><span id="36" class="l"><a href="#36">36: </a><span class="php-var">$pdf</span>-&gt;AddPage();
 </span><span id="37" class="l"><a href="#37">37: </a><span class="php-var">$pdf</span>-&gt;SetFont(<span class="php-quote">'Times'</span>,<span class="php-quote">''</span>,<span class="php-num">12</span>);
 </span><span id="38" class="l"><a href="#38">38: </a><span class="php-keyword1">for</span>(<span class="php-var">$i</span>=<span class="php-num">1</span>;<span class="php-var">$i</span>&lt;=<span class="php-num">40</span>;<span class="php-var">$i</span>++)
-</span><span id="39" class="l"><a href="#39">39: </a>    <span class="php-var">$pdf</span>-&gt;Cell(<span class="php-num">0</span>,<span class="php-num">10</span>,<span class="php-quote">''</span>.<span class="php-var">$i</span>,<span class="php-num">0</span>,<span class="php-num">1</span>);
+</span><span id="39" class="l"><a href="#39">39: </a>    <span class="php-var">$pdf</span>-&gt;Cell(<span class="php-num">0</span>,<span class="php-num">10</span>,<span class="php-quote">'Impression de la ligne num�ro '</span>.<span class="php-var">$i</span>,<span class="php-num">0</span>,<span class="php-num">1</span>);
 </span><span id="40" class="l"><a href="#40">40: </a><span class="php-var">$pdf</span>-&gt;Output();
 </span><span id="41" class="l"><a href="#41">41: </a><span class="xlang">?&gt;</span>
 </span><span id="42" class="l"><a href="#42">42: </a></span></code></pre>
@@ -159,7 +159,7 @@
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?b0190b762c44aef8a22d425001e65a34c3fde803"></script>
+<script src="resources/combined.js?c7b3e475f22a94327006efb3b96c199d4dedf6a3"></script>
 <script src="elementlist.js?67660bdcc184ecf588dfade5c6ca2ceae2a9d07b"></script>
 </body>
 </html>

@@ -5,12 +5,12 @@ class PDF extends FPDF
 {
 //Colonne courante
 var $col=0;
-//Ordonnée du début des colonnes
+//Ordonnï¿½e du dï¿½but des colonnes
 var $y0;
 
 function Header()
 {
-	//En-tête
+	//En-tï¿½te
 	global $titre;
 
 	$this->SetFont('Arial','B',15);
@@ -22,7 +22,7 @@ function Header()
 	$this->SetLineWidth(1);
 	$this->Cell($w,9,$titre,1,1,'C',true);
 	$this->Ln(10);
-	//Sauvegarde de l'ordonnée
+	//Sauvegarde de l'ordonnï¿½e
 	$this->y0=$this->GetY();
 }
 
@@ -46,19 +46,19 @@ function SetCol($col)
 
 function AcceptPageBreak()
 {
-	//Méthode autorisant ou non le saut de page automatique
+	//Mï¿½thode autorisant ou non le saut de page automatique
 	if($this->col<2)
 	{
-		//Passage à la colonne suivante
+		//Passage ï¿½ la colonne suivante
 		$this->SetCol($this->col+1);
-		//Ordonnée en haut
+		//Ordonnï¿½e en haut
 		$this->SetY($this->y0);
 		//On reste sur la page
 		return false;
 	}
 	else
 	{
-		//Retour en première colonne
+		//Retour en premiï¿½re colonne
 		$this->SetCol(0);
 		//Saut de page
 		return true;
@@ -72,7 +72,7 @@ function TitreChapitre($num,$lib)
 	$this->SetFillColor(200,220,255);
 	$this->Cell(0,6,"Chapitre $num : $lib",0,1,'L',true);
 	$this->Ln(4);
-	//Sauvegarde de l'ordonnée
+	//Sauvegarde de l'ordonnï¿½e
 	$this->y0=$this->GetY();
 }
 
@@ -90,7 +90,7 @@ function CorpsChapitre($fichier)
 	//Mention
 	$this->SetFont('','I');
 	$this->Cell(0,5,'(fin de l\'extrait)');
-	//Retour en première colonne
+	//Retour en premiï¿½re colonne
 	$this->SetCol(0);
 }
 
@@ -103,11 +103,11 @@ function AjouterChapitre($num,$titre,$fichier)
 }
 }
 
-$pdf=new PDF();
+$pdf=new FPDF();
 $titre='Vingt mille lieues sous les mers';
 $pdf->SetTitle($titre);
 $pdf->SetAuthor('Jules Verne');
-$pdf->AjouterChapitre(1,'UN ÉCUEIL FUYANT','20k_c1.txt');
+$pdf->AjouterChapitre(1,'UN ï¿½CUEIL FUYANT','20k_c1.txt');
 $pdf->AjouterChapitre(2,'LE POUR ET LE CONTRE','20k_c2.txt');
 $pdf->Output();
 ?>

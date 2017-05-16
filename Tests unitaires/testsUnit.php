@@ -45,7 +45,23 @@ class testsUnit extends PHPUnit_Framework_TestCase{
         $this->assertEquals($visiteur, $this->monPdotest->getInfosVisiteur('lvillachane', 'jux7g'));
     }
     
-   public function testgetVisiteursParDate(){
+    public function testgetLesMoisNonValides(){
+        $lesMoisNonValides=array(
+            0=>array(
+                "mois"=>"201705",
+                0=>"201705"
+            ),
+            1=>array(
+                "mois"=>"201705",
+                0=>"201705"
+            )
+        );
+        $this->assertEquals($lesMoisNonValides, $this->monPdotest->getLesMoisNonValides());
+    
+        
+    }
+    
+   /**public function testgetVisiteursParDate(){
         $object=new stdClass();
     $lesVisiteursParDate= array(
         0=>array(
@@ -67,7 +83,7 @@ class testsUnit extends PHPUnit_Framework_TestCase{
         );
 
         $this->assertEquals($lesVisiteursParDate, $this->monPdotest->getVisiteursParDate("201705"));
-    }
+    }**/
     
 
    /** public function testgetNbjustificatifs() {
@@ -79,18 +95,18 @@ class testsUnit extends PHPUnit_Framework_TestCase{
     public function testgetLesInfosFicheFrais(){
         $fiche=array(
             "idVisiteur"=>"a131",
-            "mois"=>"201705",
-            "idEtat"=>"CR",
-            "dateModif"=>"2017-05-14",
-            "nbJustificatifs"=>"0",
-            "montantValide"=>"0.00",
-            "libEtat"=>"Fiche créée, saisie en cours",
             0=>"a131",
+            "mois"=>"201705",
             1=>"201705",
+            "idEtat"=>"CR",
             2=>"CR",
-            3=>"2017-05-14",
+            "dateModif"=>"2017-05-14",
+             3=>"2017-05-14",
+            "nbJustificatifs"=>"0",
             4=>"0",
+            "montantValide"=>"0.00",
             5=>"0.00",
+            "libEtat"=>"Fiche créée, saisie en cours",
             6=>"Fiche créée, saisie en cours"
           );
         $this->assertEquals($fiche, $this->monPdotest->getLesInfosFicheFrais("a131",'201705'));
@@ -185,7 +201,13 @@ class testsUnit extends PHPUnit_Framework_TestCase{
         $this->assertEquals($lesId, $this->monPdotest->getLesIdFrais());
     }
     
- 
+    public function testEstPremierFraisMois(){
+        $idVisiteur1="a55";
+        $idVisiteur2="b13";
+        $mois="201705";
+        $this->assertFalse($this->monPdotest->estPremierFraisMois($idVisiteur1,$mois));
+        $this->assertTrue($this->monPdotest->estPremierFraisMois($idVisiteur2,$mois));
+    }
      
     
 }

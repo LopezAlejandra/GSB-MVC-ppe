@@ -20,6 +20,12 @@ function creerPDFFiche($lesFraisHorsForfait,$lesFraisForfaits){
     $pdf->Cell(50, 10, utf8_decode(($nom . ' ' . $prenom)));
     $pdf->Ln(10);
     $pdf->Cell(50, 10, "Mois", 0, 0, 'L');
+    // Récupération du mois sous forme de chaine et l'année, ex: novembre 2010
+    // Fonction date(): Retourne une date sous forme d'une chaîne dont
+    // le paramètre "n" est le format souhaité est signifie qu'il doit retourner les mois sans les zéros initiaux
+    // Fonction strtotime: lit une date au format anglais fournie par le paramètre time,
+    // et de la transformer en timestamp Unix (le nombre de secondes depuis le 1er Janvier 1970 à 00:00:00 UTC)
+    // Fonction substr: Retourne un segment de chaîne 
     $pdf->Cell(50, 10, $listeMois[date('n', strtotime("01-" . substr($mois, 4, 2) . '-' . substr($mois, 0, 4))) - 1 ] . ' ' . substr($mois, 0, 4), 0, 0, 'C');
     $pdf->Ln(20);
     // Frais forfaitaires
@@ -31,11 +37,13 @@ function creerPDFFiche($lesFraisHorsForfait,$lesFraisForfaits){
     $pdf->Cell(45, 10, "Total", 1, 0, 'C');
     $pdf->Ln(10);
     $totalFraisForfaits=0;
+    // Parcours des frais forfaitaires reçus en paramètre
     foreach ($lesFraisForfaits as $fraisF){
         $pdf->SetTextColor(0,0,0);
-         $pdf->SetFont('Arial', 'I', 10);
+        $pdf->SetFont('Arial', 'I', 10);
         $pdf->Cell(45,10,utf8_decode($fraisF['libelle']),1,0,'L');
-         $pdf->SetFont('Arial', '', 10);
+        $pdf->SetFont('Arial', '', 10);
+        // Affichage des attributs concernés à chaque frais forfaits: 
         $pdf->Cell(45,10,$fraisF['quantite'],1,0,'C');
         $pdf->Cell(45,10,$fraisF['montant'],1,0,'C');
         $pdf->Cell(45,10,  ($fraisF['quantite']*$fraisF['montant']),1,0,'C');
@@ -56,6 +64,7 @@ function creerPDFFiche($lesFraisHorsForfait,$lesFraisForfaits){
     foreach($lesFraisHorsForfait as $fraisHF){
          $pdf->SetTextColor(0,0,0);
         $pdf->SetFont('Arial', 'I', 10);
+        // Affichage des attributs concernés à chaque frais forfaits: 
         $pdf->Cell(60, 10, $fraisHF['date'], 1, 0, 'C');
         $pdf->SetFont('Arial', '', 10);
         $pdf->Cell(60, 10, utf8_decode($fraisHF['libelle']), 1, 0, 'C');
@@ -71,6 +80,7 @@ function creerPDFFiche($lesFraisHorsForfait,$lesFraisForfaits){
     //Signature
     $pdf->Ln(10);
     $pdf->SetX($pdf->_getpageformat('A4')[0] - 70);
+    // Format j: Jour du mois sans les zéros initiaux
     $pdf->Cell(50, 10, utf8_decode('Fait à Paris le ' . date('j') . ' ' . $listeMois[date('n') - 1] . ' ' . date('Y')));
     $pdf->Ln(7);
     $pdf->SetX($pdf->_getpageformat('A4')[0] - 70);

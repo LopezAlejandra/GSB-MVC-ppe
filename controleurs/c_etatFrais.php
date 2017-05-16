@@ -1,5 +1,4 @@
 ﻿<?php
-
 include("vues/v_sommaire.php");
 $action = $_REQUEST['action'];
 $idUtilisateur = $_SESSION['idUtilisateur'];
@@ -20,8 +19,10 @@ switch($action){
 		$moisASelectionner = $leMois;
 		include("vues/v_listeMois.php");
 		$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idUtilisateur,$leMois);
-		$lesFraisForfait= $pdo->getLesFraisForfait($idUtilisateur,$leMois);
-		$lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idUtilisateur,$leMois);
+		//var_dump($lesFraisHorsForfait);
+                $lesFraisForfait= $pdo->getLesFraisForfait($idUtilisateur,$leMois);
+		//var_dump($lesFraisForfait);
+                $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idUtilisateur,$leMois);
 		$numAnnee =substr( $leMois,0,4);
 		$numMois =substr( $leMois,4,2);
 		$libEtat = $lesInfosFicheFrais['libEtat'];
@@ -31,8 +32,7 @@ switch($action){
 		$dateModif =  dateAnglaisVersFrancais($dateModif);
 		include("vues/v_etatFrais.php");
                 break;
-	}
-        
+	}        
         case 'generatePDF':{
             $leMois=$_REQUEST['leMois'];
             $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idUtilisateur,$leMois);
@@ -42,6 +42,4 @@ switch($action){
         break;
         }
 }
-
-
 ?>

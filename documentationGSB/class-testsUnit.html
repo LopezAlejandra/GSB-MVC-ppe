@@ -51,7 +51,7 @@
 				<li><a href="function-ajouterErreur.html">ajouterErreur</a></li>
 				<li><a href="function-CheckTTF.html">CheckTTF</a></li>
 				<li><a href="function-connecter.html">connecter</a></li>
-				<li><a href="function-creerPDFFiche.html">creerPDFFiche</a></li>
+				<li><a href="function-creerPDFFiche.html" class="invalid">creerPDFFiche</a></li>
 				<li><a href="function-dateAnglaisVersFrancais.html">dateAnglaisVersFrancais</a></li>
 				<li><a href="function-dateFrancaisVersAnglais.html">dateFrancaisVersAnglais</a></li>
 				<li><a href="function-deconnecter.html">deconnecter</a></li>
@@ -146,7 +146,7 @@ PHPUnit_Framework_TestCase
 
 				<b>Author:</b>
 				admin<br>
-			<b>Located at</b> <a href="source-class-testsUnit.html#9-58" title="Go to source code">Tests unitaires/testsUnit.php</a>
+			<b>Located at</b> <a href="source-class-testsUnit.html#10-213" title="Go to source code">Tests unitaires/testsUnit.php</a>
 		<br>
 	</div>
 
@@ -166,7 +166,7 @@ PHPUnit_Framework_TestCase
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setUp">#</a>
-		<code><a href="source-class-testsUnit.html#21-32" title="Go to source code">setUp</a>( )</code>
+		<code><a href="source-class-testsUnit.html#22-33" title="Go to source code">setUp</a>( )</code>
 
 		<div class="description short">
 			<p>Sets up the fixture, for example, opens a network connection.
@@ -188,7 +188,7 @@ This method is called before a test is executed.</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="testgetNbjustificatifs" id="_testgetNbjustificatifs">
+	<tr data-order="testgetInfosVisiteur" id="_testgetInfosVisiteur">
 
 		<td class="attributes"><code>
 			 public 
@@ -199,8 +199,8 @@ This method is called before a test is executed.</p>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_testgetNbjustificatifs">#</a>
-		<code><a href="source-class-testsUnit.html#35-37" title="Go to source code">testgetNbjustificatifs</a>( )</code>
+		<a class="anchor" href="#_testgetInfosVisiteur">#</a>
+		<code><a href="source-class-testsUnit.html#34-46" title="Go to source code">testgetInfosVisiteur</a>( )</code>
 
 		<div class="description short">
 			
@@ -218,7 +218,7 @@ This method is called before a test is executed.</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="TestGetLesIdFrais" id="_TestGetLesIdFrais">
+	<tr data-order="testgetLesMoisNonValides" id="_testgetLesMoisNonValides">
 
 		<td class="attributes"><code>
 			 public 
@@ -229,8 +229,162 @@ This method is called before a test is executed.</p>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_TestGetLesIdFrais">#</a>
-		<code><a href="source-class-testsUnit.html#39-54" title="Go to source code">TestGetLesIdFrais</a>( )</code>
+		<a class="anchor" href="#_testgetLesMoisNonValides">#</a>
+		<code><a href="source-class-testsUnit.html#48-62" title="Go to source code">testgetLesMoisNonValides</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testgetLesInfosFicheFrais" id="_testgetLesInfosFicheFrais">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testgetLesInfosFicheFrais">#</a>
+		<code><a href="source-class-testsUnit.html#92-113" title="Go to source code">testgetLesInfosFicheFrais</a>( )</code>
+
+		<div class="description short">
+			<p>public function testgetNbjustificatifs() {
+$this->assertEquals(0, $this->monPdotest->getNbjustificatifs('a131', '201409'));
+}*</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>public function testgetNbjustificatifs() {
+$this->assertEquals(0, $this->monPdotest->getNbjustificatifs('a131', '201409'));
+}*</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testgetLesFraisHorsForfaits" id="_testgetLesFraisHorsForfaits">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testgetLesFraisHorsForfaits">#</a>
+		<code><a href="source-class-testsUnit.html#115-134" title="Go to source code">testgetLesFraisHorsForfaits</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testgetLesFraisForfaits" id="_testgetLesFraisForfaits">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testgetLesFraisForfaits">#</a>
+		<code><a href="source-class-testsUnit.html#135-182" title="Go to source code">testgetLesFraisForfaits</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testgetLesIdFrais" id="_testgetLesIdFrais">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testgetLesIdFrais">#</a>
+		<code><a href="source-class-testsUnit.html#187-202" title="Go to source code">testgetLesIdFrais</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testEstPremierFraisMois" id="_testEstPremierFraisMois">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testEstPremierFraisMois">#</a>
+		<code><a href="source-class-testsUnit.html#204-210" title="Go to source code">testEstPremierFraisMois</a>( )</code>
 
 		<div class="description short">
 			
@@ -270,7 +424,7 @@ This method is called before a test is executed.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-testsUnit.html#16-19" title="Go to source code"><var>$monPdotest</var></a>
+				<a href="source-class-testsUnit.html#17-20" title="Go to source code"><var>$monPdotest</var></a>
 
 			<div class="description short">
 				

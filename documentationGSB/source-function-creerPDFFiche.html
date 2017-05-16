@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>File vues/generatePDF.php | gsbMVC</title>
+	<title>File vues/v_generatePDF.php | gsbMVC</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -53,7 +53,7 @@
 				<li><a href="function-ajouterErreur.html">ajouterErreur</a></li>
 				<li><a href="function-CheckTTF.html">CheckTTF</a></li>
 				<li><a href="function-connecter.html">connecter</a></li>
-				<li><a href="function-creerPDFFiche.html">creerPDFFiche</a></li>
+				<li><a href="function-creerPDFFiche.html" class="invalid">creerPDFFiche</a></li>
 				<li><a href="function-dateAnglaisVersFrancais.html">dateAnglaisVersFrancais</a></li>
 				<li><a href="function-dateFrancaisVersAnglais.html">dateFrancaisVersAnglais</a></li>
 				<li><a href="function-deconnecter.html">deconnecter</a></li>
@@ -113,9 +113,9 @@
 
 <pre><code><span id="1" class="l"><a href="#1"> 1: </a><span class="xlang">&lt;?php</span>
 </span><span id="2" class="l"><a href="#2"> 2: </a><span class="php-keyword1">function</span> creerPDFFiche(<span class="php-var">$laFiche</span>){
-</span><span id="3" class="l"><a href="#3"> 3: </a>    <span class="php-var">$fiche</span> = <span class="php-keyword2">explode</span>(<span class="php-quote">'-'</span>, <span class="php-var">$_GET</span>[<span class="php-quote">'fiche'</span>]);
+</span><span id="3" class="l"><a href="#3"> 3: </a>    <span class="php-comment">//$fiche = explode('-', $_GET['fiche']);</span>
 </span><span id="4" class="l"><a href="#4"> 4: </a>    <span class="php-var">$listeMois</span> = [<span class="php-quote">'Janvier'</span>, <span class="php-quote">'Février'</span>, <span class="php-quote">'Mars'</span>, <span class="php-quote">'Avril'</span>, <span class="php-quote">'Mai'</span>, <span class="php-quote">'Juin'</span>, <span class="php-quote">'Juillet'</span>, <span class="php-quote">'Août'</span>, <span class="php-quote">'Septembre'</span>, <span class="php-quote">'Octobre'</span>, <span class="php-quote">'Novembre'</span>, <span class="php-quote">'Décembre'</span>];
-</span><span id="5" class="l"><a href="#5"> 5: </a>    <span class="php-var">$mois</span> = <span class="php-var">$fiche</span>[<span class="php-num">0</span>];
+</span><span id="5" class="l"><a href="#5"> 5: </a>    <span class="php-var">$mois</span> = <span class="php-var">$laFiche</span>[<span class="php-quote">'mois'</span>];
 </span><span id="6" class="l"><a href="#6"> 6: </a>    <span class="php-keyword1">require</span> <span class="php-keyword2">dirname</span>(__DIR__) . DIRECTORY_SEPARATOR . <span class="php-quote">&quot;fpdf&quot;</span> . DIRECTORY_SEPARATOR . <span class="php-quote">&quot;fpdf.php&quot;</span>;
 </span><span id="7" class="l"><a href="#7"> 7: </a>    <span class="php-var">$pdf</span> = <span class="php-keyword1">new</span> FPDF();
 </span><span id="8" class="l"><a href="#8"> 8: </a>    <span class="php-var">$pdf</span>-&gt;AddPage();
@@ -179,7 +179,7 @@
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?b0190b762c44aef8a22d425001e65a34c3fde803"></script>
+<script src="resources/combined.js?c7b3e475f22a94327006efb3b96c199d4dedf6a3"></script>
 <script src="elementlist.js?67660bdcc184ecf588dfade5c6ca2ceae2a9d07b"></script>
 </body>
 </html>
