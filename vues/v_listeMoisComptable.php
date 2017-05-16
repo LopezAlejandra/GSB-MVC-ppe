@@ -2,20 +2,27 @@
     <h3>Liste des mois avec des fiches de frais à valider</h3>
     <form method="GET" action="index.php">
         <label for="lstMois">Mois :</label>
+        <!--Liste déroulante des mois qui ont des fiches de frais non validées -->
         <select name="lstmois" id="lstMois">
+        <!--Parcours du tableau associatif $aValider -->
         <?php foreach($aValider as $annee => $mois): ?>
+        <!-- Pour chaque mois comme $item,  -->
             <?php foreach($mois as $item): ?>
+            <!--value= annee+item, exemple:2015+10... si lstmois existe et est égal à annee, on met l'attribut "selected"; sinon, on met une chaine vide -->
             <option value="<?php echo $annee . $item ?>" <?php echo (isset($_GET['lstmois']) && $_GET['lstmois'] == $annee . $item) ? 'selected': ''; ?>><?php echo $item . " / " . $annee; ?></option>
             <?php endforeach; ?>
         <?php endforeach; ?>
         </select>
-
+        
         <input type="hidden" name="uc" value="validationFrais">
         <input type="hidden" name="action" value="demandeValiderFrais">
         <input type="hidden" name="part" value="2">
+        <!-- si part égal à 2:-->
         <?php if($part === "2"): ?>
             <label for="lstvisiteurs">Liste des visiteurs :</label>
+            <!--On affiche la liste des visiteurs concernées par le mois choisi précédemment-->
             <select name="lstvisiteurs" id="lstVisiteurs">
+                <!--Pour chaque visiteur,on affiche dans la balise option leur nom et prénom -->
                 <?php foreach($visiteurs as $visiteur): ?>
                     <option value="<?php echo $visiteur->id; ?>" <?php echo (isset($_GET['lstvisiteurs']) && $_GET['lstvisiteurs'] === $visiteur->id) ? 'selected' : ''; ?>><?php echo $visiteur->nom . " " . $visiteur->prenom; ?></option>
                 <?php endforeach; ?>
@@ -23,8 +30,10 @@
         <?php endif; ?>
         <button type="submit">Valider</button>
     </form>
+    <!--Si afficherFiche existe est égal à true, alors:-->
     <?php if(isset($afficherFiche) && $afficherFiche): ?>
         <h2>Les frais hors forfait</h2>
+        <!--On affiche le libellé, la date modif et le montant validé de la fiche concernée-->
         <p>
             Etat : <?= $libelleEtat ?> depuis le <?= $dateModif ?><br />
             Montant validé : <?= $montantValide; ?>
@@ -38,8 +47,10 @@
             </tr>
             </thead>
             <tbody>
+                <!--Pour chaque fiche concernant les frais hors forfait: -->
                 <?php foreach($fiche["horsForfait"] as $frais): ?>
                     <tr>
+                        <!-- On affiche leur libellé et montant -->
                         <td><?php echo $frais['libelle']; ?></td>
                         <td><?php echo $frais['montant']; ?>€</td>
                         <td>
