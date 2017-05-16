@@ -31,6 +31,7 @@
         <button type="submit">Valider</button>
     </form>
     <!--Si afficherFiche existe est égal à true, alors:-->
+    <div id='infos_fiches'>
     <?php if(isset($afficherFiche) && $afficherFiche): ?>
         <h2>Les frais hors forfait</h2>
         <!--On affiche le libellé, la date modif et le montant validé de la fiche concernée-->
@@ -108,5 +109,5 @@
             <input type="hidden" name="idvisiteur" value="<?php echo $_GET['lstvisiteurs']; ?>">
             <input type="hidden" name="mois" value="<?php echo $_GET['lstmois']; ?>">
         </form>
-    <?php endif; ?>
+    <?php endif; ?></div>
 </div>

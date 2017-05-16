@@ -6,12 +6,13 @@ switch($action){
     
     case "demandeValiderFrais": {
         
-        //si la variable "part" existe,$part= $_GET["part"]; sinon $part=1;
+        // si la variable "part" existe,$part= $_GET["part"]; sinon $part=1;
         // cela est équivalent à 
         //     if(isset($_GET["part"]){
         //          $part=$_GET["part"];
         //      }else{
-        //          $part=1;}
+        //          $part=1;
+        //      }
         $part = isset($_GET['part'])? $_GET['part'] : '1';
         // Recupérer les mois pour les fiches de frais qui ne sont pas encore validés.
         $liste_mois = $pdo->getLesMoisNonValides();
@@ -26,7 +27,7 @@ switch($action){
                 //alors: annee Courante devient la clé du tableau
                 $aValider[$anneeCourant] = [];
             }
-            // So le mois courant n'appartient pas au tableau 
+            // Si le mois courant n'appartient pas au tableau 
             // $aValider,
             if(!in_array($moisCourant, $aValider[$anneeCourant])){
                 // alors:
@@ -51,7 +52,8 @@ switch($action){
             $libelleEtat= $LesInfoFicheFrais['libEtat'];
             $montantValide=$LesInfoFicheFrais['montantValide'];
             $dateModif=$LesInfoFicheFrais['dateModif'];
-            // Le tableau fiche avec la clé "forfait" concerne les fiches de frais retournées par
+            //Initialisation du tableau associatif "fiche" qui a comme clé une chaîne de caractères
+            // On attribue les fiches de frais retournées par
             // la méthode "getLesFraisForfaits" du visiteur et du mois choisi précédemment
             $fiche["forfait"] = $pdo->getLesFraisForfait($_GET['lstvisiteurs'], $_GET['lstmois']);
             // Le tableau fiche avec la clé "horsForfait" concerne les fiches de frais retournées par
@@ -66,7 +68,7 @@ switch($action){
     case "actualiserFrais": {
         $pdo->majFraisForfait($_POST['idvisiteur'], $_POST['mois'], $_POST['frais']);
         // Affichage du message "informations actualisées" dans la vue précédente
-        setFlash("Informations actualisées");
+        setFlash("Informations actualisées"); 
         header("location:index.php?uc=validationFrais&action=demandeValiderFrais&part=2&lstmois={$_POST['mois']}&lstvisiteurs={$_POST['idvisiteur']}");
         break;
     }
