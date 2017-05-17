@@ -4,8 +4,9 @@
   <head>
     <title>Intranet du Laboratoire Galaxy-Swiss Bourdin</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-     <script src="./js/jquery.js" type="text/javascript"></script>
-        <script src="./js/monJsGsb.js" type="text/javascript"></script>
+    <script src="./js/jquery.js" type="text/javascript"></script>
+    <script src="./js/monJsGsb.js" type="text/javascript"></script>
+       
     <link href="./styles/styles.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
   </head>

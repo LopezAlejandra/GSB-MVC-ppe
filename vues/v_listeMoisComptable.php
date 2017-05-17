@@ -5,13 +5,13 @@
         <!--Liste déroulante des mois qui ont des fiches de frais non validées -->
         <select name="lstmois" id="lstMois">
         <!--Parcours du tableau associatif $aValider -->
-        <?php foreach($aValider as $annee => $mois): ?>
+        <?php foreach($aValider as $annee => $mois){ ?>
         <!--   -->
-            <?php foreach($mois as $item): ?>
+            <?php foreach($mois as $le_mois){ ?>
             <!--value= annee+item, exemple:2015+10... si lstmois existe et est égal à annee, on met l'attribut "selected"; sinon, on met une chaine vide -->
-            <option value="<?php echo $annee . $item ?>" <?php echo (isset($_GET['lstmois']) && $_GET['lstmois'] == $annee . $item) ? 'selected': ''; ?>><?php echo $item . " / " . $annee; ?></option>
-            <?php endforeach; ?>
-        <?php endforeach; ?>
+            <option value="<?php echo $annee . $le_mois ?>" <?php echo (isset($_GET['lstmois']) && $_GET['lstmois'] == $annee . $le_mois) ? 'selected': ''; ?>><?php echo $le_mois . " / " . $annee; ?></option>
+            <?php } ?>
+        <?php } ?>
         </select>
         
         <input type="hidden" name="uc" value="validationFrais">
@@ -19,23 +19,23 @@
         <input type="hidden" name="part" value="2">
         <!-- si part égal à 2:-->
         <div id="liste_visiteurs">
-        <?php if($part === "2"): ?>
+        <?php if($part === "2"){ ?>
             <br/>
             <label for="lstvisiteurs">Liste des visiteurs : </label>
             <!--On affiche la liste des visiteurs concernées par le mois choisi précédemment-->
             <select name="lstvisiteurs" id="lstVisiteurs">
                 <!--Pour chaque visiteur,on affiche dans la balise option leur nom et prénom -->
-                <?php foreach($visiteurs as $visiteur): ?>
+                <?php foreach($visiteurs as $visiteur){ ?>
                     <option value="<?php echo $visiteur->id; ?>" <?php echo (isset($_GET['lstvisiteurs']) && $_GET['lstvisiteurs'] === $visiteur->id) ? 'selected' : ''; ?>><?php echo $visiteur->nom . " " . $visiteur->prenom; ?></option>
-                <?php endforeach; ?>
+                <?php } ?>
             </select>
-        <?php endif; ?>
+        <?php } ?>
         </div>
            
         <button type="submit">Valider</button>
     </form>
     <div id="liste_infos">
-    <?php if(isset($afficherFiche) && $afficherFiche): ?>
+    <?php if(isset($afficherFiche) && $afficherFiche){ ?>
         <h2>Les frais hors forfait</h2>
         <p>
             Etat : <?= $libelleEtat ?> depuis le <?= $dateModif ?><br />
@@ -50,8 +50,8 @@
             </tr>
             </thead>
             <tbody>
-                <!--Pour chaque fiche concernant les frais hors forfait: -->
-                <?php foreach($fiche["horsForfait"] as $frais): ?>
+                <!--Pour chaque fiche hors forfait: -->
+                <?php foreach($fiche["horsForfait"] as $frais){ ?>
                     <tr>
                         
                         <td><?php echo $frais['libelle']; ?></td>
@@ -73,7 +73,7 @@
                             </form>
                         </td>
                     </tr>
-                <?php endforeach; ?>
+                <?php } ?>
             </tbody>
         </table>
         <p>&nbsp;</p>
@@ -87,14 +87,14 @@
             </tr>
             </thead>
             <tbody>
-                <?php foreach($fiche['forfait'] as $ficheF): ?>
+                <?php foreach($fiche['forfait'] as $ficheF){ ?>
                     
                     <tr>
                         <td><?php echo $ficheF['libelle']; ?></td>
                         <td><input type="text" name="frais[<?php echo $ficheF['idfrais']; ?>]" value="<?php echo $ficheF['quantite']; ?>"></td>
                     </tr>
                    
-                <?php endforeach; ?>
+                <?php } ?>
 
                 <tr>
                     <td colspan="2">
@@ -111,5 +111,5 @@
             <input type="hidden" name="idvisiteur" value="<?php echo $_GET['lstvisiteurs']; ?>">
             <input type="hidden" name="mois" value="<?php echo $_GET['lstmois']; ?>">
         </form>
-    <?php endif; ?></div>
+    <?php } ?></div>
 </div>

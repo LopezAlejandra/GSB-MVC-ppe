@@ -2,7 +2,7 @@
 function creerPDFFiche($laFiche){
     $fiche = explode('-', $_GET['fiche']);
     $listeMois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-    $mois = $laFiche['mois'];
+    $mois = $fiche[0];
     require dirname(__DIR__) . DIRECTORY_SEPARATOR . "fpdf" . DIRECTORY_SEPARATOR . "fpdf.php";
     $pdf = new FPDF();
     $pdf->AddPage();

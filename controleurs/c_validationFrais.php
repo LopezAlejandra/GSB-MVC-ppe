@@ -14,33 +14,34 @@ switch($action){
         //          $part=1;
         //      }
         $part = isset($_GET['part'])? $_GET['part'] : '1';
-        // Recupérer les mois pour les fiches de frais qui ne sont pas encore validés.
+        // Recupérer les mois pour les fiches de frais qui n'ont pas encore été validées.
         $liste_mois = $pdo->getLesMoisNonValides();
+        // var_dump($liste_mois);
         $aValider = [];//Création d'un tableau
-        $moisAValider = [];
-        // Parcour de la liste des mois non validés
+        
+        // Parcours de la liste des mois non validés
         foreach($liste_mois as $mois){
-            $anneeCourant = substr($mois["mois"], 0, 4);
+            $anneeCourante = substr($mois["mois"], 0, 4);
             $moisCourant = substr($mois["mois"], 4, 2);
             //Si l'année courante n'existe pas dans le tableau "aValider"
-            if(!array_key_exists($anneeCourant, $aValider)){
+            if(!array_key_exists($anneeCourante, $aValider)){
                 //alors: annee Courante devient la clé du tableau
-                $aValider[$anneeCourant] = [];
+                $aValider[$anneeCourante] = [];
             }
             // Si le mois courant n'appartient pas au tableau 
             // $aValider,
-            if(!in_array($moisCourant, $aValider[$anneeCourant])){
+            if(!in_array($moisCourant, $aValider[$anneeCourante])){
                 // alors:
-                //On ajoute le mois au tableau avec la
-                //clé $anneeCourant
-                $aValider[$anneeCourant][] = $moisCourant;
+                // On ajoute le mois au tableau avec la
+                // clé $anneeCourant
+                $aValider[$anneeCourante][] = $moisCourant;
             }
         }
         // Si part vaut 2
        if($part === "2"){
-           //alors: on récupère les visiteurs selon le mois choisi
+           // alors: on récupère les visiteurs selon le mois choisi
             $visiteurs = $pdo->getVisiteursParDate($_GET['lstmois']);
-            //var_dump($visiteurs);
+            // var_dump($visiteurs);
            }
         // Si la liste de Visiteurs existe,
         if(isset($_GET['lstvisiteurs'])){
@@ -62,6 +63,12 @@ switch($action){
                        
         }
         include("vues/v_listeMoisComptable.php");
+        break;
+    }
+     case "validerFicheFrais": {
+        $pdo->validerFicheFrais($_POST['idvisiteur'], $_POST['mois']);
+        setFlash("La fiche a bien été validée");
+        header('location:index.php?uc=validationFrais&action=demandeValiderFrais');
         break;
     }
 
@@ -91,11 +98,6 @@ switch($action){
         break;
     }
 
-    case "validerFicheFrais": {
-        $pdo->validerFicheFrais($_POST['idvisiteur'], $_POST['mois']);
-        setFlash("La fiche a bien été validée");
-        header('location:index.php?uc=validationFrais&action=demandeValiderFrais');
-        break;
-    }
+   
    
 }

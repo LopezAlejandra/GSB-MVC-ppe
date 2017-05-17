@@ -28,7 +28,7 @@ class testsUnit extends PHPUnit_Framework_TestCase{
     protected function setUp()
     {
 	$this->monPdotest = PdoGsb::getPdoGsb() ;
-//        PdoGsb::getPdo()->exec("SET AUTOCOMMIT OFF ;");
+        // PdoGsb::getPdo()->exec("SET AUTOCOMMIT OFF ;");
         // PdoGsb::getPdo()->beginTransaction();
     }
     public function testgetInfosVisiteur(){
@@ -48,8 +48,8 @@ class testsUnit extends PHPUnit_Framework_TestCase{
     public function testgetLesMoisNonValides(){
         $lesMoisNonValides=array(
             0=>array(
-                "mois"=>"201705",
-                0=>"201705"
+                "mois"=>"201704",
+                0=>"201704"
             ),
             1=>array(
                 "mois"=>"201705",
@@ -61,34 +61,23 @@ class testsUnit extends PHPUnit_Framework_TestCase{
         
     }
     
-   /**public function testgetVisiteursParDate(){
-        $object=new stdClass();
-    $lesVisiteursParDate= array(
-        0=>array(
-            "id" => 'a131',
-            0=>"a131",
-            "nom"=>'Villechalane',
-            1=>"Villechalane",
-            "prenom"=>'Louis',
-            2=>"Louis"
-        ),
-        1=>  array(
-            "id" => 'a55',
-            0=>"a55",
-            "nom"=>'Bedos',
-            1=>"Bedos",
-            "prenom"=>'Christian',
-            2=>"Christian"
-        )
-        );
-
-        $this->assertEquals($lesVisiteursParDate, $this->monPdotest->getVisiteursParDate("201705"));
-    }**/
-    
-
-   /** public function testgetNbjustificatifs() {
-        $this->assertEquals(0, $this->monPdotest->getNbjustificatifs('a131', '201409'));
-    }**/
+   public function testgetVisiteursParDate(){
+       
+    $lesVisiteursParDate=[];
+    $lesVisiteursParDate[] = ['id' => 'a93', 'nom' => 'Tusseau', 'prenom' => 'Louis'];// Indice 0
+    $lesVisiteursParDate[] = ['id' => 'b34', 'nom' => 'Cadic', 'prenom' => 'Eric']; // Indice 1
+        $tabObjetsTypeVisiteur=[];
+      
+        foreach ($lesVisiteursParDate as $unVisiteur){
+            $objet=new stdClass();
+            $objet->id=$unVisiteur['id'];
+            $objet->nom=$unVisiteur['nom'];
+            $objet->prenom=$unVisiteur['prenom'];
+            $tabObjetsTypeVisiteur[]=$objet;
+        }
+        $this->assertEquals($tabObjetsTypeVisiteur,$this->monPdotest->getVisiteursParDate("201704"));
+        }
+       
 
  
     
@@ -98,16 +87,16 @@ class testsUnit extends PHPUnit_Framework_TestCase{
             0=>"a131",
             "mois"=>"201705",
             1=>"201705",
-            "idEtat"=>"CR",
-            2=>"CR",
+            "idEtat"=>"VA",
+            2=>"VA",
             "dateModif"=>"2017-05-14",
              3=>"2017-05-14",
             "nbJustificatifs"=>"0",
             4=>"0",
             "montantValide"=>"0.00",
             5=>"0.00",
-            "libEtat"=>"Fiche créée, saisie en cours",
-            6=>"Fiche créée, saisie en cours"
+            "libEtat"=>"Validée et mise en paiement",
+            6=>"Validée et mise en paiement"
           );
         $this->assertEquals($fiche, $this->monPdotest->getLesInfosFicheFrais("a131",'201705'));
     }
@@ -180,9 +169,6 @@ class testsUnit extends PHPUnit_Framework_TestCase{
         
         
     }
-    
-
-
     
     public function testgetLesIdFrais(){
         $lesId = array(
