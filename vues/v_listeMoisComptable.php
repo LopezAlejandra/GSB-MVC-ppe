@@ -6,7 +6,7 @@
         <select name="lstmois" id="lstMois">
         <!--Parcours du tableau associatif $aValider -->
         <?php foreach($aValider as $annee => $mois): ?>
-        <!-- Pour chaque mois comme $item,  -->
+        <!--   -->
             <?php foreach($mois as $item): ?>
             <!--value= annee+item, exemple:2015+10... si lstmois existe et est égal à annee, on met l'attribut "selected"; sinon, on met une chaine vide -->
             <option value="<?php echo $annee . $item ?>" <?php echo (isset($_GET['lstmois']) && $_GET['lstmois'] == $annee . $item) ? 'selected': ''; ?>><?php echo $item . " / " . $annee; ?></option>
@@ -18,8 +18,10 @@
         <input type="hidden" name="action" value="demandeValiderFrais">
         <input type="hidden" name="part" value="2">
         <!-- si part égal à 2:-->
+        <div id="liste_visiteurs">
         <?php if($part === "2"): ?>
-            <label for="lstvisiteurs">Liste des visiteurs :</label>
+            <br/>
+            <label for="lstvisiteurs">Liste des visiteurs : </label>
             <!--On affiche la liste des visiteurs concernées par le mois choisi précédemment-->
             <select name="lstvisiteurs" id="lstVisiteurs">
                 <!--Pour chaque visiteur,on affiche dans la balise option leur nom et prénom -->
@@ -28,13 +30,13 @@
                 <?php endforeach; ?>
             </select>
         <?php endif; ?>
+        </div>
+           
         <button type="submit">Valider</button>
     </form>
-    <!--Si afficherFiche existe est égal à true, alors:-->
-    <div id='infos_fiches'>
+    <div id="liste_infos">
     <?php if(isset($afficherFiche) && $afficherFiche): ?>
         <h2>Les frais hors forfait</h2>
-        <!--On affiche le libellé, la date modif et le montant validé de la fiche concernée-->
         <p>
             Etat : <?= $libelleEtat ?> depuis le <?= $dateModif ?><br />
             Montant validé : <?= $montantValide; ?>
@@ -51,7 +53,7 @@
                 <!--Pour chaque fiche concernant les frais hors forfait: -->
                 <?php foreach($fiche["horsForfait"] as $frais): ?>
                     <tr>
-                        <!-- On affiche leur libellé et montant -->
+                        
                         <td><?php echo $frais['libelle']; ?></td>
                         <td><?php echo $frais['montant']; ?>€</td>
                         <td>
