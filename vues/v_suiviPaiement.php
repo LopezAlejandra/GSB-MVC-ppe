@@ -4,13 +4,13 @@
         <input type="hidden" name="uc" value="suiviPaiement">
         <input type="hidden" name="action" value="demandeSuiviPaiement">
         <select name="fiche">
-            <?php foreach($fiches as $fiche): ?>
+            <?php foreach($fiches as $fiche){ ?>
                 <option <?= (isset($_GET['fiche']) && $laFiche['mois'] == $fiche['mois'] && $laFiche['visiteur'] == $fiche['idVisiteur']) ? 'selected' : ''; ?> value="<?= $fiche['mois'] . '-' . $fiche['idVisiteur'] ?>"><?=  substr($fiche['mois'], 4, 2) . ' - ' . $fiche['nom'] . ' ' . $fiche['prenom']; ?></option>
-            <?php endforeach; ?>
+            <?php }; ?>
         </select>
         <button type="submit">Envoyer</button>
     </form>
-    <?php if(isset($laFiche)): ?>
+    <?php if(isset($laFiche)){ ?>
         <h3>Les frais hors forfait</h3>
         <table style="width:100%">
             <thead>
@@ -20,12 +20,12 @@
                 </tr>
             </thead>
             <tbody>
-            <?php foreach($laFiche['hors_forfait'] as $value): ?>
+            <?php foreach($laFiche['hors_forfait'] as $value){ ?>
                 <tr>
                     <td><?= $value['libelle'] ?></td>
                     <td><?= $value['montant'] ?></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php } ?>
             </tbody>
         </table>
 
@@ -38,14 +38,14 @@
             </tr>
             </thead>
             <tbody>
-            <?php foreach($laFiche['forfait'] as $value): ?>
+            <?php foreach($laFiche['forfait'] as $value){ ?>
                 
                 <tr>
                     <td><?= $value['libelle'] ?></td>
                     <td><?= $value['quantite'] ?></td>
                 </tr>
                 
-            <?php endforeach; ?>
+            <?php } ?>
             </tbody>
         </table>
         <p>
@@ -56,5 +56,5 @@
             <button>Mettre en Paiement</button>
         </form>
         </p>
-    <?php endif; ?>
+    <?php }; ?>
 </div>
